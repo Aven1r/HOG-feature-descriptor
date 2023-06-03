@@ -1,10 +1,13 @@
-project(HOG_descriptor_lib LANGUAGES CXX)
+set(LIB_SOURCES
+    hog.cpp
+    hogdescriptor.hpp
+)
 
-# List of all files in directory
-set(SOURCES
-        
-        )
+# Create a library from the source files
+add_library(HOG_library ${LIB_SOURCES})
 
-add_library(HOG_descriptor_lib ${SOURCES})
+# Link the library with OpenCV
+target_link_libraries(HOG_library PUBLIC ${OpenCV_LIBS})
 
-set_property(TARGET HOG_descriptor_lib PROPERTY CXX_STANDARD 20)
+target_include_directories(HOG_library PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(HOG_library PUBLIC ${OpenCV_INCLUDE_DIRS})

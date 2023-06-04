@@ -1,4 +1,4 @@
-#include "hogdescriptor.hpp"
+#include <hogdescriptor/hogdescriptor.hpp>
 #include "opencv2/imgproc/imgproc.hpp"
 #include "opencv2/highgui/highgui.hpp"
 #include <iostream>
@@ -14,7 +14,7 @@ int main(){
     }
     //To-do: add visualization for cell and block
     // descriptor.visualizeHOG(0.3, false);
-    descriptor.visualizeHOGCell(10,10);
+    descriptor.HOGplot(10,10);
     
     return 0;
 }

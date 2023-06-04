@@ -1,0 +1,7 @@
+<map id="check_ctor_params" name="check_ctor_params">
+<area shape="rect" id="Node000001" title=" " alt="" coords="263,31,398,56"/>
+<area shape="rect" id="Node000002" href="$class_h_o_g_descriptor.html#a23fed7ae98c9aa771ab33fcba58a720d" title=" " alt="" coords="5,5,215,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="248,37,215,33,215,28,248,31"/>
+<area shape="rect" id="Node000003" href="$class_h_o_g_descriptor.html#aefe5eefa01f8d055f6d9721b7f5b54f1" title="Construct a new HOGDescriptor object." alt="" coords="5,55,215,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="248,55,215,59,215,53,248,50"/>
+</map>

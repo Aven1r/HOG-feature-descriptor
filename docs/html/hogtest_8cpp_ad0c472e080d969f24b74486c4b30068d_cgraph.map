@@ -1,0 +1,17 @@
+<map id="TEST_CASE" name="TEST_CASE">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,108,105,133"/>
+<area shape="rect" id="Node000002" href="$class_h_o_g_descriptor.html#a47f0882346c2ad1f693ee98a517cb6d4" title="Method for computing HOG features." alt="" coords="159,78,358,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="105,111,150,104,151,109,105,116"/>
+<area shape="rect" id="Node000008" href="$class_h_o_g_descriptor.html#a322b311fee196a3372819edc2b5cafd8" title="Method for getting the HOG feature vector." alt="" coords="153,128,364,169"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="105,124,138,129,138,134,105,130"/>
+<area shape="rect" id="Node000003" href="$class_h_o_g_descriptor.html#af66de1d67f450cf773bb59017de97de2" title="Method to calculate the HOG feature vector." alt="" coords="436,5,607,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="312,75,422,48,423,53,314,80"/>
+<area shape="rect" id="Node000005" href="$class_h_o_g_descriptor.html#ac3ffd99ecb62f8c72c908745715151b8" title="Compute the HOG feature vectors for each cell in the image." alt="" coords="425,71,617,111"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="358,88,410,88,410,94,358,94"/>
+<area shape="rect" id="Node000007" href="$class_h_o_g_descriptor.html#a941031c7fa95e2194f332d04aa0de562" title="Function to compute the magnitude and orientation of each pixel in the input image." alt="" coords="412,136,630,177"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="316,102,365,114,426,129,425,134,363,119,315,107"/>
+<area shape="rect" id="Node000004" href="$class_h_o_g_descriptor.html#a5d80481a2878b52c03a8ded165ddfe52" title="Function to normalize the HOG feature vectors for each block of cells in the image." alt="" coords="690,5,866,46"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="607,23,675,23,675,28,607,28"/>
+<area shape="rect" id="Node000006" href="$class_h_o_g_descriptor.html#aa0f30146937363e1ddb619ebec5c8068" title="Method to compute the histogram for the given cell." alt="" coords="678,78,878,104"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="618,88,663,88,663,94,618,94"/>
+</map>

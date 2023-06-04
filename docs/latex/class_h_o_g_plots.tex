@@ -1,0 +1,87 @@
+\doxysection{HOGPlots Class Reference}
+\hypertarget{class_h_o_g_plots}{}\label{class_h_o_g_plots}\index{HOGPlots@{HOGPlots}}
+
+
+Class for creating .tex files with plots of HOG.  
+
+
+
+
+{\ttfamily \#include $<$texvisualization.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_h_o_g_plots_a310df433757435a99529d2a98250510b}{HOGPlots}} ()=default
+\begin{DoxyCompactList}\small\item\em Construct a new \doxylink{class_h_o_g_plots}{HOGPlots} object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_h_o_g_plots_a2be148df9f4c83c18596476ef0007c00}{HOGgrid}} (cv\+::\+Mat \&image, float thickness, int cell\+Size)
+\begin{DoxyCompactList}\small\item\em Method to show the grid of cells on image. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_h_o_g_plots_a6810288024bb8878252d4115fd265bef}{cell\+Histogram\+Plot}} (std\+::vector$<$ float $>$ cell\+Histogram, int block\+Width, const std\+::string \&executable\+Path)
+\begin{DoxyCompactList}\small\item\em Method for creating a .tex file with the histogram of given cell. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class for creating .tex files with plots of HOG. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_h_o_g_plots_a310df433757435a99529d2a98250510b}\label{class_h_o_g_plots_a310df433757435a99529d2a98250510b} 
+\index{HOGPlots@{HOGPlots}!HOGPlots@{HOGPlots}}
+\index{HOGPlots@{HOGPlots}!HOGPlots@{HOGPlots}}
+\doxysubsubsection{\texorpdfstring{HOGPlots()}{HOGPlots()}}
+{\footnotesize\ttfamily HOGPlots\+::\+HOGPlots (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+
+
+Construct a new \doxylink{class_h_o_g_plots}{HOGPlots} object. 
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_h_o_g_plots_a6810288024bb8878252d4115fd265bef}\label{class_h_o_g_plots_a6810288024bb8878252d4115fd265bef} 
+\index{HOGPlots@{HOGPlots}!cellHistogramPlot@{cellHistogramPlot}}
+\index{cellHistogramPlot@{cellHistogramPlot}!HOGPlots@{HOGPlots}}
+\doxysubsubsection{\texorpdfstring{cellHistogramPlot()}{cellHistogramPlot()}}
+{\footnotesize\ttfamily void HOGPlots\+::cell\+Histogram\+Plot (\begin{DoxyParamCaption}\item[{std\+::vector$<$ float $>$}]{cell\+Histogram,  }\item[{int}]{block\+Width,  }\item[{const std\+::string \&}]{executable\+Path }\end{DoxyParamCaption})}
+
+
+
+Method for creating a .tex file with the histogram of given cell. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cell\+Histogram} & vector of cell histogram values \\
+\hline
+{\em block\+Width} & width of the histogram block \\
+\hline
+\end{DoxyParams}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=297pt]{class_h_o_g_plots_a6810288024bb8878252d4115fd265bef_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_h_o_g_plots_a2be148df9f4c83c18596476ef0007c00}\label{class_h_o_g_plots_a2be148df9f4c83c18596476ef0007c00} 
+\index{HOGPlots@{HOGPlots}!HOGgrid@{HOGgrid}}
+\index{HOGgrid@{HOGgrid}!HOGPlots@{HOGPlots}}
+\doxysubsubsection{\texorpdfstring{HOGgrid()}{HOGgrid()}}
+{\footnotesize\ttfamily void HOGPlots\+::\+HOGgrid (\begin{DoxyParamCaption}\item[{cv\+::\+Mat \&}]{image,  }\item[{float}]{thickness,  }\item[{int}]{cell\+Size }\end{DoxyParamCaption})}
+
+
+
+Method to show the grid of cells on image. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em thickness} & Grid line thickness \\
+\hline
+{\em cell\+Size} & Cell size in pixels \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/lib/texvisualization/include/texvisualization/\mbox{\hyperlink{texvisualization_8hpp}{texvisualization.\+hpp}}\item 
+src/lib/texvisualization/\mbox{\hyperlink{texvisualization_8cpp}{texvisualization.\+cpp}}\end{DoxyCompactItemize}

@@ -1,0 +1,13 @@
+<map id="HOGDescriptor::computeHOG" name="HOGDescriptor::computeHOG">
+<area shape="rect" id="Node000001" title="Method for computing HOG features." alt="" coords="5,78,205,104"/>
+<area shape="rect" id="Node000002" href="$class_h_o_g_descriptor.html#af66de1d67f450cf773bb59017de97de2" title="Method to calculate the HOG feature vector." alt="" coords="276,5,448,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="158,75,264,48,266,53,159,80"/>
+<area shape="rect" id="Node000004" href="$class_h_o_g_descriptor.html#ac3ffd99ecb62f8c72c908745715151b8" title="Compute the HOG feature vectors for each cell in the image." alt="" coords="266,71,458,111"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="205,88,251,88,251,94,205,94"/>
+<area shape="rect" id="Node000006" href="$class_h_o_g_descriptor.html#a941031c7fa95e2194f332d04aa0de562" title="Function to compute the magnitude and orientation of each pixel in the input image." alt="" coords="253,136,471,177"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="159,102,266,129,264,134,158,107"/>
+<area shape="rect" id="Node000003" href="$class_h_o_g_descriptor.html#a5d80481a2878b52c03a8ded165ddfe52" title="Function to normalize the HOG feature vectors for each block of cells in the image." alt="" coords="531,5,706,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="448,23,516,23,516,28,448,28"/>
+<area shape="rect" id="Node000005" href="$class_h_o_g_descriptor.html#aa0f30146937363e1ddb619ebec5c8068" title="Method to compute the histogram for the given cell." alt="" coords="519,78,718,104"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="459,88,504,88,504,94,459,94"/>
+</map>

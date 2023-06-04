@@ -1,0 +1,5 @@
+<map id="HOGDescriptor::calculateHOGVector" name="HOGDescriptor::calculateHOGVector">
+<area shape="rect" id="Node000001" title="Method to calculate the HOG feature vector." alt="" coords="5,5,177,46"/>
+<area shape="rect" id="Node000002" href="$class_h_o_g_descriptor.html#a5d80481a2878b52c03a8ded165ddfe52" title="Function to normalize the HOG feature vectors for each block of cells in the image." alt="" coords="225,5,400,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="177,23,210,23,210,28,177,28"/>
+</map>

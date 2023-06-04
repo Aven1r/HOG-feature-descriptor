@@ -1,0 +1,560 @@
+\doxysection{HOGDescriptor Class Reference}
+\hypertarget{class_h_o_g_descriptor}{}\label{class_h_o_g_descriptor}\index{HOGDescriptor@{HOGDescriptor}}
+
+
+Class for calculating the HOG features.  
+
+
+
+
+{\ttfamily \#include $<$hogdescriptor.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_h_o_g_descriptor_a65bdf0da3863c65dbd5f7848ff979e66}{HOGDescriptor}} ()
+\begin{DoxyCompactList}\small\item\em Default constructor for the \doxylink{class_h_o_g_descriptor}{HOGDescriptor} class. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_h_o_g_descriptor_aefe5eefa01f8d055f6d9721b7f5b54f1}{HOGDescriptor}} (const size\+\_\+t block\+Size, const size\+\_\+t cell\+Size, const size\+\_\+t stride, const size\+\_\+t bin\+Number, const size\+\_\+t grad\+Type)
+\begin{DoxyCompactList}\small\item\em Construct a new \doxylink{class_h_o_g_descriptor}{HOGDescriptor} object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_h_o_g_descriptor_a23fed7ae98c9aa771ab33fcba58a720d}{HOGDescriptor}} (const size\+\_\+t block\+Size, const size\+\_\+t cell\+Size)
+\item 
+\mbox{\hyperlink{class_h_o_g_descriptor_a2bb07236bfd587b68f1ccd7a9bf19525}{\texorpdfstring{$\sim$}{\string~}\+HOGDescriptor}} ()
+\begin{DoxyCompactList}\small\item\em Constructor for the \doxylink{class_h_o_g_descriptor}{HOGDescriptor} class with parameters for the block size and cell size. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_h_o_g_descriptor}{HOGDescriptor}} \& \mbox{\hyperlink{class_h_o_g_descriptor_ac26d065520814729f0b04c741d372ce1}{operator=}} (const \mbox{\hyperlink{class_h_o_g_descriptor}{HOGDescriptor}} \&rhs)
+\begin{DoxyCompactList}\small\item\em Assignment operator for the \doxylink{class_h_o_g_descriptor}{HOGDescriptor} class. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_h_o_g_descriptor_a7d7ba6487f9d68d5cc394c58d016f76a}{HOGplot}} (float scale, bool imposed)
+\begin{DoxyCompactList}\small\item\em Method for plotting the cells\+Histogram of \doxylink{class_h_o_g_descriptor}{HOGDescriptor} as a bunch of arrows within the each cell on image. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_h_o_g_descriptor_a47f0882346c2ad1f693ee98a517cb6d4}{compute\+HOG}} (cv\+::\+Mat \&image)
+\begin{DoxyCompactList}\small\item\em Method for computing HOG features. \end{DoxyCompactList}\item 
+std\+::vector$<$ float $>$ \mbox{\hyperlink{class_h_o_g_descriptor_a322b311fee196a3372819edc2b5cafd8}{get\+HOGFeature\+Vector}} ()
+\begin{DoxyCompactList}\small\item\em Method for getting the HOG feature vector. \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::vector$<$ std\+::vector$<$ float $>$ $>$ $>$ \mbox{\hyperlink{class_h_o_g_descriptor_ad09ae14f8b447abdee23bbe810a98313}{get\+Cell\+Histograms}} ()
+\begin{DoxyCompactList}\small\item\em Get the Cell Histograms object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static const size\+\_\+t \mbox{\hyperlink{class_h_o_g_descriptor_a38f1dd0b85d37e977a8c36756b426d6e}{GRADIENT\+\_\+\+SIGNED}} = 360
+\begin{DoxyCompactList}\small\item\em 360 degree spread of histogram channels \end{DoxyCompactList}\item 
+static const size\+\_\+t \mbox{\hyperlink{class_h_o_g_descriptor_ab900f42a1825534e3731441a41d974c3}{GRADIENT\+\_\+\+UNSIGNED}} = 180
+\begin{DoxyCompactList}\small\item\em 180 degree spread of histogram channels \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_h_o_g_descriptor_a941031c7fa95e2194f332d04aa0de562}{compute\+Gradient\+Features}} (cv\+::\+Mat \&image)
+\begin{DoxyCompactList}\small\item\em Function to compute the magnitude and orientation of each pixel in the input image. \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::vector$<$ std\+::vector$<$ float $>$ $>$ $>$ \mbox{\hyperlink{class_h_o_g_descriptor_ac3ffd99ecb62f8c72c908745715151b8}{compute\+Cell\+Histograms}} (cv\+::\+Mat magnitude, cv\+::\+Mat orientation, std\+::vector$<$ std\+::vector$<$ std\+::vector$<$ float $>$ $>$ $>$ \&cell\+\_\+histograms)
+\begin{DoxyCompactList}\small\item\em Compute the HOG feature vectors for each cell in the image. \end{DoxyCompactList}\item 
+std\+::vector$<$ float $>$ \mbox{\hyperlink{class_h_o_g_descriptor_aa0f30146937363e1ddb619ebec5c8068}{cell\+Histogram}} (const cv\+::\+Mat \&cell\+Magnitude, const cv\+::\+Mat \&cell\+Orientation)
+\begin{DoxyCompactList}\small\item\em Method to compute the histogram for the given cell. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_h_o_g_descriptor_a5d80481a2878b52c03a8ded165ddfe52}{normalize\+Block\+Histogram}} (std\+::vector$<$ float $>$ \&block\+\_\+histogram)
+\begin{DoxyCompactList}\small\item\em Function to normalize the HOG feature vectors for each block of cells in the image. \end{DoxyCompactList}\item 
+const std\+::vector$<$ float $>$ \mbox{\hyperlink{class_h_o_g_descriptor_af66de1d67f450cf773bb59017de97de2}{calculate\+HOGVector}} (const std\+::vector$<$ std\+::vector$<$ std\+::vector$<$ float $>$ $>$ $>$ \&cell\+\_\+histograms)
+\begin{DoxyCompactList}\small\item\em Method to calculate the HOG feature vector. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{class_h_o_g_descriptor_a0826178e6b41e6f0fc95871bbf35beda}{block\+Size\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Block size for the sliding window in pixels. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_h_o_g_descriptor_a662700f5109498b43d4f797d58b0ac01}{cell\+Size\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Size of the cell in pixels. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_h_o_g_descriptor_ab368835f191be558e8661a42cea03abc}{bin\+Number\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Number of the bins in the histogram of each cell. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_h_o_g_descriptor_af3cdc7eff43a0a547211eed7b6900848}{bin\+Width\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Width of the bins in the histogram of each cell. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_h_o_g_descriptor_ac4679b160fb1fbda5ae39213319a28ee}{stride\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Sliding window stride in pixels. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_h_o_g_descriptor_af6a9a71122c4ad595343af74147ba50b}{grad\+Type\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Type of the gradient calculation (unsigned or signed) \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_h_o_g_descriptor_a928493cf46d26b7f27962fb0c1f2294c}{hog\+Flag\+\_\+}} = false
+\begin{DoxyCompactList}\small\item\em Flag to check if the HOG feature vector has been computed. \end{DoxyCompactList}\item 
+cv\+::\+Mat \mbox{\hyperlink{class_h_o_g_descriptor_a7f16fcf730e67782ce4336ecc7fd8c0c}{image\+Magnitude\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Magnitude of the gradient image. \end{DoxyCompactList}\item 
+cv\+::\+Mat \mbox{\hyperlink{class_h_o_g_descriptor_a14591a338d3053148d361ffe3a8edfa2}{image\+Orientation\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Orientation of the gradient image. \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::vector$<$ std\+::vector$<$ float $>$ $>$ $>$ \mbox{\hyperlink{class_h_o_g_descriptor_ac28e8c677d0528ee51997d9f8f1a53ad}{cell\+Histograms\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Vector of cell histograms. \end{DoxyCompactList}\item 
+std\+::vector$<$ float $>$ \mbox{\hyperlink{class_h_o_g_descriptor_aeb9cfc96c8492026a87d049d39aecd0b}{hog\+Feature\+Vector\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Final HOG feature vector. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class for calculating the HOG features. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_h_o_g_descriptor_a65bdf0da3863c65dbd5f7848ff979e66}\label{class_h_o_g_descriptor_a65bdf0da3863c65dbd5f7848ff979e66} 
+\index{HOGDescriptor@{HOGDescriptor}!HOGDescriptor@{HOGDescriptor}}
+\index{HOGDescriptor@{HOGDescriptor}!HOGDescriptor@{HOGDescriptor}}
+\doxysubsubsection{\texorpdfstring{HOGDescriptor()}{HOGDescriptor()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily HOGDescriptor\+::\+HOGDescriptor (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Default constructor for the \doxylink{class_h_o_g_descriptor}{HOGDescriptor} class. 
+
+\Hypertarget{class_h_o_g_descriptor_aefe5eefa01f8d055f6d9721b7f5b54f1}\label{class_h_o_g_descriptor_aefe5eefa01f8d055f6d9721b7f5b54f1} 
+\index{HOGDescriptor@{HOGDescriptor}!HOGDescriptor@{HOGDescriptor}}
+\index{HOGDescriptor@{HOGDescriptor}!HOGDescriptor@{HOGDescriptor}}
+\doxysubsubsection{\texorpdfstring{HOGDescriptor()}{HOGDescriptor()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily HOGDescriptor\+::\+HOGDescriptor (\begin{DoxyParamCaption}\item[{const size\+\_\+t}]{block\+Size,  }\item[{const size\+\_\+t}]{cell\+Size,  }\item[{const size\+\_\+t}]{stride,  }\item[{const size\+\_\+t}]{bin\+Number,  }\item[{const size\+\_\+t}]{grad\+Type }\end{DoxyParamCaption})}
+
+
+
+Construct a new \doxylink{class_h_o_g_descriptor}{HOGDescriptor} object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em block\+Size} & Block size for the sliding window in pixels \\
+\hline
+{\em cell\+Size} & Size of the cell in pixels \\
+\hline
+{\em stride} & Sliding window stride in pixels \\
+\hline
+{\em bin\+Number} & Number of the bins in the histogram of each cell \\
+\hline
+{\em grad\+Type} & Type of the gradient calculation (unsigned or signed) \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_h_o_g_descriptor_aefe5eefa01f8d055f6d9721b7f5b54f1_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_h_o_g_descriptor_a23fed7ae98c9aa771ab33fcba58a720d}\label{class_h_o_g_descriptor_a23fed7ae98c9aa771ab33fcba58a720d} 
+\index{HOGDescriptor@{HOGDescriptor}!HOGDescriptor@{HOGDescriptor}}
+\index{HOGDescriptor@{HOGDescriptor}!HOGDescriptor@{HOGDescriptor}}
+\doxysubsubsection{\texorpdfstring{HOGDescriptor()}{HOGDescriptor()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily HOGDescriptor\+::\+HOGDescriptor (\begin{DoxyParamCaption}\item[{const size\+\_\+t}]{block\+Size,  }\item[{const size\+\_\+t}]{cell\+Size }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_h_o_g_descriptor_a23fed7ae98c9aa771ab33fcba58a720d_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_h_o_g_descriptor_a2bb07236bfd587b68f1ccd7a9bf19525}\label{class_h_o_g_descriptor_a2bb07236bfd587b68f1ccd7a9bf19525} 
+\index{HOGDescriptor@{HOGDescriptor}!````~HOGDescriptor@{\texorpdfstring{$\sim$}{\string~}HOGDescriptor}}
+\index{````~HOGDescriptor@{\texorpdfstring{$\sim$}{\string~}HOGDescriptor}!HOGDescriptor@{HOGDescriptor}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}HOGDescriptor()}{\string~HOGDescriptor()}}
+{\footnotesize\ttfamily HOGDescriptor\+::\texorpdfstring{$\sim$}{\string~}\+HOGDescriptor (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Constructor for the \doxylink{class_h_o_g_descriptor}{HOGDescriptor} class with parameters for the block size and cell size. 
+
+Destroy the \doxylink{class_h_o_g_descriptor}{HOGDescriptor} object 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_h_o_g_descriptor_af66de1d67f450cf773bb59017de97de2}\label{class_h_o_g_descriptor_af66de1d67f450cf773bb59017de97de2} 
+\index{HOGDescriptor@{HOGDescriptor}!calculateHOGVector@{calculateHOGVector}}
+\index{calculateHOGVector@{calculateHOGVector}!HOGDescriptor@{HOGDescriptor}}
+\doxysubsubsection{\texorpdfstring{calculateHOGVector()}{calculateHOGVector()}}
+{\footnotesize\ttfamily const std\+::vector$<$ float $>$ HOGDescriptor\+::calculate\+HOGVector (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ std\+::vector$<$ std\+::vector$<$ float $>$ $>$ $>$ \&}]{cell\+\_\+histograms }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Method to calculate the HOG feature vector. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cell\+\_\+histograms} & 3d vector of cell histograms \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Final vector 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_h_o_g_descriptor_af66de1d67f450cf773bb59017de97de2_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_h_o_g_descriptor_af66de1d67f450cf773bb59017de97de2_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_h_o_g_descriptor_aa0f30146937363e1ddb619ebec5c8068}\label{class_h_o_g_descriptor_aa0f30146937363e1ddb619ebec5c8068} 
+\index{HOGDescriptor@{HOGDescriptor}!cellHistogram@{cellHistogram}}
+\index{cellHistogram@{cellHistogram}!HOGDescriptor@{HOGDescriptor}}
+\doxysubsubsection{\texorpdfstring{cellHistogram()}{cellHistogram()}}
+{\footnotesize\ttfamily std\+::vector$<$ float $>$ HOGDescriptor\+::cell\+Histogram (\begin{DoxyParamCaption}\item[{const cv\+::\+Mat \&}]{cell\+Magnitude,  }\item[{const cv\+::\+Mat \&}]{cell\+Orientation }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Method to compute the histogram for the given cell. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cell\+Magnitude} & cell magnitude matrix \\
+\hline
+{\em cell\+Orientation} & cell orientation matrix \\
+\hline
+\end{DoxyParams}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_h_o_g_descriptor_aa0f30146937363e1ddb619ebec5c8068_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_h_o_g_descriptor_ac3ffd99ecb62f8c72c908745715151b8}\label{class_h_o_g_descriptor_ac3ffd99ecb62f8c72c908745715151b8} 
+\index{HOGDescriptor@{HOGDescriptor}!computeCellHistograms@{computeCellHistograms}}
+\index{computeCellHistograms@{computeCellHistograms}!HOGDescriptor@{HOGDescriptor}}
+\doxysubsubsection{\texorpdfstring{computeCellHistograms()}{computeCellHistograms()}}
+{\footnotesize\ttfamily std\+::vector$<$ std\+::vector$<$ std\+::vector$<$ float $>$ $>$ $>$ HOGDescriptor\+::compute\+Cell\+Histograms (\begin{DoxyParamCaption}\item[{cv\+::\+Mat}]{magnitude,  }\item[{cv\+::\+Mat}]{orientation,  }\item[{std\+::vector$<$ std\+::vector$<$ std\+::vector$<$ float $>$ $>$ $>$ \&}]{cell\+\_\+histograms }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Compute the HOG feature vectors for each cell in the image. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em gradient} & gradient matrix computed by compute\+Gradient() \\
+\hline
+{\em orientation} & orientation matrix computed by compute\+Gradient() \\
+\hline
+{\em histograms} & output vector of HOG feature vectors for each cell \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+3d vector of cell histograms 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_h_o_g_descriptor_ac3ffd99ecb62f8c72c908745715151b8_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_h_o_g_descriptor_ac3ffd99ecb62f8c72c908745715151b8_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_h_o_g_descriptor_a941031c7fa95e2194f332d04aa0de562}\label{class_h_o_g_descriptor_a941031c7fa95e2194f332d04aa0de562} 
+\index{HOGDescriptor@{HOGDescriptor}!computeGradientFeatures@{computeGradientFeatures}}
+\index{computeGradientFeatures@{computeGradientFeatures}!HOGDescriptor@{HOGDescriptor}}
+\doxysubsubsection{\texorpdfstring{computeGradientFeatures()}{computeGradientFeatures()}}
+{\footnotesize\ttfamily void HOGDescriptor\+::compute\+Gradient\+Features (\begin{DoxyParamCaption}\item[{cv\+::\+Mat \&}]{image }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Function to compute the magnitude and orientation of each pixel in the input image. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em image} & input image \\
+\hline
+\end{DoxyParams}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_h_o_g_descriptor_a941031c7fa95e2194f332d04aa0de562_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_h_o_g_descriptor_a47f0882346c2ad1f693ee98a517cb6d4}\label{class_h_o_g_descriptor_a47f0882346c2ad1f693ee98a517cb6d4} 
+\index{HOGDescriptor@{HOGDescriptor}!computeHOG@{computeHOG}}
+\index{computeHOG@{computeHOG}!HOGDescriptor@{HOGDescriptor}}
+\doxysubsubsection{\texorpdfstring{computeHOG()}{computeHOG()}}
+{\footnotesize\ttfamily void HOGDescriptor\+::compute\+HOG (\begin{DoxyParamCaption}\item[{cv\+::\+Mat \&}]{image }\end{DoxyParamCaption})}
+
+
+
+Method for computing HOG features. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em image} & input image \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+std\+::vector$<$float$>$ -\/ HOG feature vector for the image. 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_h_o_g_descriptor_a47f0882346c2ad1f693ee98a517cb6d4_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=340pt]{class_h_o_g_descriptor_a47f0882346c2ad1f693ee98a517cb6d4_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_h_o_g_descriptor_ad09ae14f8b447abdee23bbe810a98313}\label{class_h_o_g_descriptor_ad09ae14f8b447abdee23bbe810a98313} 
+\index{HOGDescriptor@{HOGDescriptor}!getCellHistograms@{getCellHistograms}}
+\index{getCellHistograms@{getCellHistograms}!HOGDescriptor@{HOGDescriptor}}
+\doxysubsubsection{\texorpdfstring{getCellHistograms()}{getCellHistograms()}}
+{\footnotesize\ttfamily std\+::vector$<$ std\+::vector$<$ std\+::vector$<$ float $>$ $>$ $>$ HOGDescriptor\+::get\+Cell\+Histograms (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the Cell Histograms object. 
+
+\begin{DoxyReturn}{Returns}
+std\+::vector$<$std\+::vector$<$std\+::vector$<$float$>$$>$$>$ 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=324pt]{class_h_o_g_descriptor_ad09ae14f8b447abdee23bbe810a98313_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_h_o_g_descriptor_a322b311fee196a3372819edc2b5cafd8}\label{class_h_o_g_descriptor_a322b311fee196a3372819edc2b5cafd8} 
+\index{HOGDescriptor@{HOGDescriptor}!getHOGFeatureVector@{getHOGFeatureVector}}
+\index{getHOGFeatureVector@{getHOGFeatureVector}!HOGDescriptor@{HOGDescriptor}}
+\doxysubsubsection{\texorpdfstring{getHOGFeatureVector()}{getHOGFeatureVector()}}
+{\footnotesize\ttfamily std\+::vector$<$ float $>$ HOGDescriptor\+::get\+HOGFeature\+Vector (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Method for getting the HOG feature vector. 
+
+\begin{DoxyReturn}{Returns}
+std\+::vector$<$float$>$ 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=349pt]{class_h_o_g_descriptor_a322b311fee196a3372819edc2b5cafd8_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_h_o_g_descriptor_a7d7ba6487f9d68d5cc394c58d016f76a}\label{class_h_o_g_descriptor_a7d7ba6487f9d68d5cc394c58d016f76a} 
+\index{HOGDescriptor@{HOGDescriptor}!HOGplot@{HOGplot}}
+\index{HOGplot@{HOGplot}!HOGDescriptor@{HOGDescriptor}}
+\doxysubsubsection{\texorpdfstring{HOGplot()}{HOGplot()}}
+{\footnotesize\ttfamily void HOGDescriptor\+::\+HOGplot (\begin{DoxyParamCaption}\item[{float}]{scale,  }\item[{bool}]{imposed }\end{DoxyParamCaption})}
+
+
+
+Method for plotting the cells\+Histogram of \doxylink{class_h_o_g_descriptor}{HOGDescriptor} as a bunch of arrows within the each cell on image. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em scale} & Scale of the arrows \\
+\hline
+{\em imposed} & Background image for reference \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_h_o_g_descriptor_a7d7ba6487f9d68d5cc394c58d016f76a_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=281pt]{class_h_o_g_descriptor_a7d7ba6487f9d68d5cc394c58d016f76a_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_h_o_g_descriptor_a5d80481a2878b52c03a8ded165ddfe52}\label{class_h_o_g_descriptor_a5d80481a2878b52c03a8ded165ddfe52} 
+\index{HOGDescriptor@{HOGDescriptor}!normalizeBlockHistogram@{normalizeBlockHistogram}}
+\index{normalizeBlockHistogram@{normalizeBlockHistogram}!HOGDescriptor@{HOGDescriptor}}
+\doxysubsubsection{\texorpdfstring{normalizeBlockHistogram()}{normalizeBlockHistogram()}}
+{\footnotesize\ttfamily void HOGDescriptor\+::normalize\+Block\+Histogram (\begin{DoxyParamCaption}\item[{std\+::vector$<$ float $>$ \&}]{block\+\_\+histogram }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Function to normalize the HOG feature vectors for each block of cells in the image. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em block} & vector of histograms representing the cells within a block \\
+\hline
+\end{DoxyParams}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_h_o_g_descriptor_a5d80481a2878b52c03a8ded165ddfe52_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_h_o_g_descriptor_ac26d065520814729f0b04c741d372ce1}\label{class_h_o_g_descriptor_ac26d065520814729f0b04c741d372ce1} 
+\index{HOGDescriptor@{HOGDescriptor}!operator=@{operator=}}
+\index{operator=@{operator=}!HOGDescriptor@{HOGDescriptor}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_h_o_g_descriptor}{HOGDescriptor}} \& HOGDescriptor\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_h_o_g_descriptor}{HOGDescriptor}} \&}]{rhs }\end{DoxyParamCaption})}
+
+
+
+Assignment operator for the \doxylink{class_h_o_g_descriptor}{HOGDescriptor} class. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rhs} & \doxylink{class_h_o_g_descriptor}{HOGDescriptor} object to be copied \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{class_h_o_g_descriptor}{HOGDescriptor}\& 
+\end{DoxyReturn}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_h_o_g_descriptor_ab368835f191be558e8661a42cea03abc}\label{class_h_o_g_descriptor_ab368835f191be558e8661a42cea03abc} 
+\index{HOGDescriptor@{HOGDescriptor}!binNumber\_@{binNumber\_}}
+\index{binNumber\_@{binNumber\_}!HOGDescriptor@{HOGDescriptor}}
+\doxysubsubsection{\texorpdfstring{binNumber\_}{binNumber\_}}
+{\footnotesize\ttfamily int HOGDescriptor\+::bin\+Number\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Number of the bins in the histogram of each cell. 
+
+\Hypertarget{class_h_o_g_descriptor_af3cdc7eff43a0a547211eed7b6900848}\label{class_h_o_g_descriptor_af3cdc7eff43a0a547211eed7b6900848} 
+\index{HOGDescriptor@{HOGDescriptor}!binWidth\_@{binWidth\_}}
+\index{binWidth\_@{binWidth\_}!HOGDescriptor@{HOGDescriptor}}
+\doxysubsubsection{\texorpdfstring{binWidth\_}{binWidth\_}}
+{\footnotesize\ttfamily int HOGDescriptor\+::bin\+Width\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Width of the bins in the histogram of each cell. 
+
+\Hypertarget{class_h_o_g_descriptor_a0826178e6b41e6f0fc95871bbf35beda}\label{class_h_o_g_descriptor_a0826178e6b41e6f0fc95871bbf35beda} 
+\index{HOGDescriptor@{HOGDescriptor}!blockSize\_@{blockSize\_}}
+\index{blockSize\_@{blockSize\_}!HOGDescriptor@{HOGDescriptor}}
+\doxysubsubsection{\texorpdfstring{blockSize\_}{blockSize\_}}
+{\footnotesize\ttfamily int HOGDescriptor\+::block\+Size\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Block size for the sliding window in pixels. 
+
+\Hypertarget{class_h_o_g_descriptor_ac28e8c677d0528ee51997d9f8f1a53ad}\label{class_h_o_g_descriptor_ac28e8c677d0528ee51997d9f8f1a53ad} 
+\index{HOGDescriptor@{HOGDescriptor}!cellHistograms\_@{cellHistograms\_}}
+\index{cellHistograms\_@{cellHistograms\_}!HOGDescriptor@{HOGDescriptor}}
+\doxysubsubsection{\texorpdfstring{cellHistograms\_}{cellHistograms\_}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::vector$<$std\+::vector$<$float$>$ $>$ $>$ HOGDescriptor\+::cell\+Histograms\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Vector of cell histograms. 
+
+\Hypertarget{class_h_o_g_descriptor_a662700f5109498b43d4f797d58b0ac01}\label{class_h_o_g_descriptor_a662700f5109498b43d4f797d58b0ac01} 
+\index{HOGDescriptor@{HOGDescriptor}!cellSize\_@{cellSize\_}}
+\index{cellSize\_@{cellSize\_}!HOGDescriptor@{HOGDescriptor}}
+\doxysubsubsection{\texorpdfstring{cellSize\_}{cellSize\_}}
+{\footnotesize\ttfamily int HOGDescriptor\+::cell\+Size\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Size of the cell in pixels. 
+
+\Hypertarget{class_h_o_g_descriptor_a38f1dd0b85d37e977a8c36756b426d6e}\label{class_h_o_g_descriptor_a38f1dd0b85d37e977a8c36756b426d6e} 
+\index{HOGDescriptor@{HOGDescriptor}!GRADIENT\_SIGNED@{GRADIENT\_SIGNED}}
+\index{GRADIENT\_SIGNED@{GRADIENT\_SIGNED}!HOGDescriptor@{HOGDescriptor}}
+\doxysubsubsection{\texorpdfstring{GRADIENT\_SIGNED}{GRADIENT\_SIGNED}}
+{\footnotesize\ttfamily const size\+\_\+t HOGDescriptor\+::\+GRADIENT\+\_\+\+SIGNED = 360\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+360 degree spread of histogram channels 
+
+\Hypertarget{class_h_o_g_descriptor_ab900f42a1825534e3731441a41d974c3}\label{class_h_o_g_descriptor_ab900f42a1825534e3731441a41d974c3} 
+\index{HOGDescriptor@{HOGDescriptor}!GRADIENT\_UNSIGNED@{GRADIENT\_UNSIGNED}}
+\index{GRADIENT\_UNSIGNED@{GRADIENT\_UNSIGNED}!HOGDescriptor@{HOGDescriptor}}
+\doxysubsubsection{\texorpdfstring{GRADIENT\_UNSIGNED}{GRADIENT\_UNSIGNED}}
+{\footnotesize\ttfamily const size\+\_\+t HOGDescriptor\+::\+GRADIENT\+\_\+\+UNSIGNED = 180\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+180 degree spread of histogram channels 
+
+\Hypertarget{class_h_o_g_descriptor_af6a9a71122c4ad595343af74147ba50b}\label{class_h_o_g_descriptor_af6a9a71122c4ad595343af74147ba50b} 
+\index{HOGDescriptor@{HOGDescriptor}!gradType\_@{gradType\_}}
+\index{gradType\_@{gradType\_}!HOGDescriptor@{HOGDescriptor}}
+\doxysubsubsection{\texorpdfstring{gradType\_}{gradType\_}}
+{\footnotesize\ttfamily int HOGDescriptor\+::grad\+Type\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Type of the gradient calculation (unsigned or signed) 
+
+\Hypertarget{class_h_o_g_descriptor_aeb9cfc96c8492026a87d049d39aecd0b}\label{class_h_o_g_descriptor_aeb9cfc96c8492026a87d049d39aecd0b} 
+\index{HOGDescriptor@{HOGDescriptor}!hogFeatureVector\_@{hogFeatureVector\_}}
+\index{hogFeatureVector\_@{hogFeatureVector\_}!HOGDescriptor@{HOGDescriptor}}
+\doxysubsubsection{\texorpdfstring{hogFeatureVector\_}{hogFeatureVector\_}}
+{\footnotesize\ttfamily std\+::vector$<$float$>$ HOGDescriptor\+::hog\+Feature\+Vector\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Final HOG feature vector. 
+
+\Hypertarget{class_h_o_g_descriptor_a928493cf46d26b7f27962fb0c1f2294c}\label{class_h_o_g_descriptor_a928493cf46d26b7f27962fb0c1f2294c} 
+\index{HOGDescriptor@{HOGDescriptor}!hogFlag\_@{hogFlag\_}}
+\index{hogFlag\_@{hogFlag\_}!HOGDescriptor@{HOGDescriptor}}
+\doxysubsubsection{\texorpdfstring{hogFlag\_}{hogFlag\_}}
+{\footnotesize\ttfamily bool HOGDescriptor\+::hog\+Flag\+\_\+ = false\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Flag to check if the HOG feature vector has been computed. 
+
+\Hypertarget{class_h_o_g_descriptor_a7f16fcf730e67782ce4336ecc7fd8c0c}\label{class_h_o_g_descriptor_a7f16fcf730e67782ce4336ecc7fd8c0c} 
+\index{HOGDescriptor@{HOGDescriptor}!imageMagnitude\_@{imageMagnitude\_}}
+\index{imageMagnitude\_@{imageMagnitude\_}!HOGDescriptor@{HOGDescriptor}}
+\doxysubsubsection{\texorpdfstring{imageMagnitude\_}{imageMagnitude\_}}
+{\footnotesize\ttfamily cv\+::\+Mat HOGDescriptor\+::image\+Magnitude\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Magnitude of the gradient image. 
+
+\Hypertarget{class_h_o_g_descriptor_a14591a338d3053148d361ffe3a8edfa2}\label{class_h_o_g_descriptor_a14591a338d3053148d361ffe3a8edfa2} 
+\index{HOGDescriptor@{HOGDescriptor}!imageOrientation\_@{imageOrientation\_}}
+\index{imageOrientation\_@{imageOrientation\_}!HOGDescriptor@{HOGDescriptor}}
+\doxysubsubsection{\texorpdfstring{imageOrientation\_}{imageOrientation\_}}
+{\footnotesize\ttfamily cv\+::\+Mat HOGDescriptor\+::image\+Orientation\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Orientation of the gradient image. 
+
+\Hypertarget{class_h_o_g_descriptor_ac4679b160fb1fbda5ae39213319a28ee}\label{class_h_o_g_descriptor_ac4679b160fb1fbda5ae39213319a28ee} 
+\index{HOGDescriptor@{HOGDescriptor}!stride\_@{stride\_}}
+\index{stride\_@{stride\_}!HOGDescriptor@{HOGDescriptor}}
+\doxysubsubsection{\texorpdfstring{stride\_}{stride\_}}
+{\footnotesize\ttfamily int HOGDescriptor\+::stride\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Sliding window stride in pixels. 
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/lib/hogdescriptor/include/hogdescriptor/\mbox{\hyperlink{hogdescriptor_8hpp}{hogdescriptor.\+hpp}}\item 
+src/lib/hogdescriptor/\mbox{\hyperlink{hogdescriptor_8cpp}{hogdescriptor.\+cpp}}\end{DoxyCompactItemize}

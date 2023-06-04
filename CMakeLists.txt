@@ -20,11 +20,9 @@ elseif(UNIX)
     set(OpenCV_DIR "/Users/avenir/vcpkg/installed/arm64-osx/share/opencv" CACHE PATH "Initial cache" FORCE)
 endif()
 
-set(Protobuf_FIND_QUIETLY TRUE)
-
 find_package(OpenCV CONFIG REQUIRED)
 find_package(doctest REQUIRED)
+
 include_directories( ${OpenCV_INCLUDE_DIRS} )
 
 add_subdirectory(src)
-add_subdirectory(tests)

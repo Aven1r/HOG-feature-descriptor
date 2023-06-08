@@ -1,5 +1,0 @@
-<map id="HOGDescriptor::HOGplot" name="HOGDescriptor::HOGplot">
-<area shape="rect" id="Node000001" title="Method for plotting the cellsHistogram of HOGDescriptor as a bunch of arrows within the each cell on ..." alt="" coords="5,5,176,31"/>
-<area shape="rect" id="Node000002" href="$class_h_o_g_descriptor.html#aa0f30146937363e1ddb619ebec5c8068" title="Method to compute the histogram for the given cell." alt="" coords="224,5,423,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="176,16,209,16,209,21,176,21"/>
-</map>

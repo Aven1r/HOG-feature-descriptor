@@ -1,9 +1,0 @@
-<map id="HOGDescriptor::computeCellHistograms" name="HOGDescriptor::computeCellHistograms">
-<area shape="rect" id="Node000001" title="Compute the HOG feature vectors for each cell in the image." alt="" coords="400,23,592,64"/>
-<area shape="rect" id="Node000002" href="$class_h_o_g_descriptor.html#a47f0882346c2ad1f693ee98a517cb6d4" title="Method for computing HOG features." alt="" coords="153,31,352,56"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="385,46,353,46,353,41,385,41"/>
-<area shape="rect" id="Node000003" href="$main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title=" " alt="" coords="30,5,80,31"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="138,31,80,24,81,19,138,26"/>
-<area shape="rect" id="Node000004" href="$hogtest_8cpp.html#ad0c472e080d969f24b74486c4b30068d" title=" " alt="" coords="5,55,105,80"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="138,60,106,64,105,59,138,55"/>
-</map>

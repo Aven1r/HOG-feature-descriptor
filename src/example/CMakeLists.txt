@@ -1,15 +1,14 @@
-# add_executable(main main.cpp)
-
-# # Set include directories for the executable
-# target_include_directories(main PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../lib)
-# target_include_directories(main PRIVATE ${OpenCV_INCLUDE_DIRS})
-
-# # Link the executable with YourLibraryName and OpenCV
-# target_link_libraries(main PRIVATE HOG_LIBRARY ${OpenCV_LIBS})
-add_executable(example
+add_executable(hoglib
     main.cpp
 )
 
 # Link libraries
-target_link_libraries(example PRIVATE hogdescriptor texvisualization)
-target_link_libraries(example PRIVATE ${OpenCV_LIBS})
+target_link_libraries(hoglib PRIVATE hogdescriptor texvisualization)
+target_link_libraries(hoglib PRIVATE ${OpenCV_LIBS})
+
+target_compile_definitions(hoglib PRIVATE INSTALL_PATH="${CMAKE_INSTALL_PREFIX}/bin")
+
+install(TARGETS hoglib DESTINATION bin)
+install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/images DESTINATION ./bin)
+
+

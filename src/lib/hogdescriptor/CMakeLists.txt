@@ -4,4 +4,5 @@ target_include_directories(hogdescriptor PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
         $<INSTALL_INTERFACE:include>
         )
-install(TARGETS hogdescriptor)
+install(TARGETS hogdescriptor DESTINATION lib)
+install(FILES include/hogdescriptor/hogdescriptor.hpp DESTINATION include/hogdescriptor)

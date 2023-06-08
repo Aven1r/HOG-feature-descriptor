@@ -11,142 +11,161 @@
 #include <math.h>
 
 /**
- * @brief Class for calculating the HOG features.
+ * @brief Класс для работы с дескриптором HOG (Гистограмма направленных градиентов)
  */
 class HOGDescriptor {
 public:
     /**
-     * @brief Default constructor for the HOGDescriptor class.
+     * @brief Конструктор для инициализации объекта класса HOGDescriptor с параметрами по умолчанию
      */
     HOGDescriptor();
+    
     /**
-     * @brief Construct a new HOGDescriptor object
+     * @brief Конструктор для класса HOGDescriptor со всеми параметрами
      * 
-     * @param blockSize Block size for the sliding window in pixels
-     * @param cellSize Size of the cell in pixels
-     * @param stride Sliding window stride in pixels
-     * @param binNumber Number of the bins in the histogram of each cell
-     * @param gradType Type of the gradient calculation (unsigned or signed)
+     * @brief Конструктор для класса HOGDescriptor со всеми параметрами
+     * @param blockSize Размер блока скользящего окна в пикселях
+     * @param cellSize Размер ячейки в пикселях
+     * @param stride Шаг скользящего окна в пикселях
+     * @param binNumber Количество корзин в гистограмме каждой ячейки
+     * @param gradType Тип вычисления градиента (беззнаковый или со знаком)
      */
     HOGDescriptor(const size_t blockSize, const size_t cellSize, 
         const size_t stride, const size_t binNumber, const size_t gradType);
-    HOGDescriptor(const size_t blockSize, const size_t cellSize); /*! @brief Constructor for the HOGDescriptor class with parameters for the block size and cell size.*/
     
     /**
-     * @brief Destroy the HOGDescriptor object
+     * @brief Конструктор для создания нового объекта HOGDescriptor
+     * 
+     * @param blockSize Размер блока скользящего окна в пикселях
+     * @param cellSize Размер ячейки в пикселях
+     * 
+     */
+    HOGDescriptor(const size_t blockSize, const size_t cellSize);
+    
+    /**
+     * @brief Деструктор для класса HOGDescriptor
      */
     ~HOGDescriptor();
 
+public: // Публичные методы для визуализации
     /**
-     * @brief Assignment operator for the HOGDescriptor class
+     * @brief Метод для визуализации гистограмм ячеек HOGDescriptor в виде стрелок внутри каждой ячейки на изображении
      * 
-     * @param rhs HOGDescriptor object to be copied
-     * @return HOGDescriptor& 
+     * @param scale Масштаб стрелок
+     * @param imposed Изображение фона для справки по амплитуде
      */
-    HOGDescriptor& operator=(const HOGDescriptor &rhs);
+    void visualizeHOG(float scale, bool imposed);
+
+    /**
+     * @brief Метод для отображения сетки ячеек на изображении
+     * 
+     * @param thickness Толщина линий сетки
+     * @param cellSize Размер ячейки в пикселях
+     */
+    void HOGgrid(cv::Mat& image, float thickness, int cellSize);
 
 public:
+    static const size_t GRADIENT_SIGNED = 360; //!< Разброс градиента на 360 градусов
+    static const size_t GRADIENT_UNSIGNED = 180; //!< Разброс градиента на 180 градусов
 
     /**
-     * @brief Method for plotting the cellsHistogram of HOGDescriptor as a bunch of arrows within the each cell on image
+     * @brief Метод для вычисления гистограмм HOG
      * 
-     * @param scale Scale of the arrows 
-     * @param imposed Background image for reference
-     */
-    void HOGplot(float scale, bool imposed);
-
-public:
-    static const size_t GRADIENT_SIGNED = 360; //!< 360 degree spread of histogram channels
-    static const size_t GRADIENT_UNSIGNED = 180; //!< 180 degree spread of histogram channels
-
-    /**
-     * @brief Method for computing HOG features
-     * 
-     * @param image: input image
-     * @return std::vector<float> - HOG feature vector for the image.
+     * @param image Входное изображение
+     * @return std::vector<float> - Вектор гистограммы HOG для изображения
      */
     void computeHOG(cv::Mat& image);
 
     /**
-     * @brief Method for getting the HOG feature vector
+     * @brief Метод для получения вектора гистограммы HOG
      * 
      * @return std::vector<float> 
      */
     std::vector<float> getHOGFeatureVector();
 
     /**
-     * @brief Get the Cell Histograms object
+     * @brief Получение гистограммы ячейки
      * 
-     * @return std::vector<std::vector<std::vector<float>>> 
+     * @param y Позиция ячейки по вертикали
+     * @param x Позиция ячейки по горизонтали
+     * @return std::vector<float> Вектор гистограммы для ячейки
      */
-    std::vector<std::vector<std::vector<float>>> getCellHistograms();
+    std::vector<float> getCellHistogram(int y, int x);
 
-    // /**
-    //  * @brief Method for getting the visualization of the cell HOG
-    //  * 
-    //  * @param x Number of the cell in the x direction
-    //  * @param y Number of the cell in the y direction
-    //  */
-    // void visualizeHOGCell(int x, int y);
+    /**
+     * @brief Получение гистограммы блока
+     * 
+     * @param y Позиция первой ячейки блока по вертикали
+     * @param x Позиция первой ячееки блока по горизонали
+     * @return std::vector<std::vector<float>> 
+     */
+    std::vector<std::vector<float>> getBlockHistogram(int y, int x);
+
+    /**
+     * @brief Сохранение вектора HOG в файл
+     * 
+     * @param executablePath Путь, где будет сохранен файл
+     * @param vectorName Имя вектора
+     */
+    void saveVectorData(const std::string& executablePath, const std::string& vectorName);
 
 private:
     /**
-     * @brief Function to compute the magnitude and orientation of each pixel in the input image
+     * @brief Функция для вычисления амплитуды и ориентации градиента каждого пикселя
      * 
-     * @param image: input image
+     * @param image Входное изображение
      */
     void computeGradientFeatures(cv::Mat& image);
 
     /**
-     * @brief Compute the HOG feature vectors for each cell in the image.
+     * @brief Вычисление гистограмм HOG для каждой ячейки изображения.
      * 
-     * @param gradient: gradient matrix computed by computeGradient()
-     * @param orientation:  orientation matrix computed by computeGradient()
-     * @param histograms:  output vector of HOG feature vectors for each cell
-     * @return 3d vector of cell histograms
+     * @param magnitude Амплитуда градиента, вычисленная с помощью computeGradient()
+     * @param orientation Ориентация градиента, вычисленная с помощью computeGradient()
+     * @param cell_histograms Выходной вектор гистограмм HOG для каждой ячейки
+     * @return 3D-вектор гистограмм ячеек
      */
     std::vector<std::vector<std::vector<float>>> computeCellHistograms(cv::Mat magnitude, cv::Mat orientation, std::vector<std::vector<std::vector<float>>>& cell_histograms);
 
     /**
-     * @brief Method to compute the histogram for the given cell
+     * @brief Метод для вычисления гистограммы для данной ячейки
      * 
-     * @param cellMagnitude cell magnitude matrix
-     * @param cellOrientation cell orientation matrix
+     * @param cellMagnitude Матрица амплитуд ячейки
+     * @param cellOrientation Матрица ориентаций ячейки
      */
     std::vector<float> cellHistogram(const cv::Mat& cellMagnitude, const cv::Mat& cellOrientation);
 
     /**
-     * @brief Function to normalize the HOG feature vectors for each block of cells in the image
+     * @brief Функция для нормализации значений из гистограмм HOG для объедененных ячеек из блока
      * 
-     * @param block: vector of histograms representing the cells within a block
+     * @param block Вектор значений, представляющих гистограммы ячеек для всего блока
      */
     void normalizeBlockHistogram(std::vector<float>& block_histogram);
 
     /**
-     * @brief Method to calculate the HOG feature vector
+     * @brief Метод для вычисления вектора гистограммы HOG
      * 
-     * @param cell_histograms 3d vector of cell histograms
-     * @return Final vector
+     * @param cell_histograms 3D-вектор гистограмм ячеек
+     * @return Финальный вектор
      */
     const std::vector<float> calculateHOGVector(const std::vector<std::vector<std::vector<float>>>& cell_histograms);
 
-
-
 private:
-    int blockSize_; //!< Block size for the sliding window in pixels
-    int cellSize_; //!< Size of the cell in pixels
-    int binNumber_; //!< Number of the bins in the histogram of each cell
-    int binWidth_; //!< Width of the bins in the histogram of each cell
-    int stride_; //!< Sliding window stride in pixels
-    int gradType_; //!< Type of the gradient calculation (unsigned or signed)
+    int blockSize_; //!< Размер блока скользящего окна в пикселях
+    int cellSize_; //!< Размер ячейки в пикселях
+    int binNumber_; //!< Количество корзин в гистограмме каждой ячейки
+    int binWidth_; //!< Ширина корзин в гистограмме каждой ячейки
+    int stride_; //!< Шаг скользящего окна в пикселях
+    int gradType_; //!< Тип вычисления градиента (беззнаковый или со знаком)
 
-    bool hogFlag_ = false; //!< Flag to check if the HOG feature vector has been computed
+    bool hogFlag_ = false; //!< Флаг, указывающий, был ли вычислен вектор гистограммы HOG
 
-    cv::Mat imageMagnitude_; //!< Magnitude of the gradient image
-    cv::Mat imageOrientation_; //!< Orientation of the gradient image
+    cv::Mat imageMagnitude_; //!< Амплитуда градиента изображения
+    cv::Mat imageOrientation_; //!< Ориентация градиента изображения
 
-    std::vector<std::vector<std::vector<float>>> cellHistograms_; //!< Vector of cell histograms
-    std::vector<float> hogFeatureVector_; //!< Final HOG feature vector
+    std::vector<std::vector<std::vector<float>>> cellHistograms_; //!< Вектор гистограмм ячеек
+    std::vector<float> hogFeatureVector_; //!< Финальный вектор гистограммы HOG
+
 };
 
 #endif //HOGDESCRIPTOR_H

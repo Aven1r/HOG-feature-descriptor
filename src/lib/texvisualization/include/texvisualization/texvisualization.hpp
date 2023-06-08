@@ -8,31 +8,33 @@
 #include <opencv2/opencv.hpp>
 
 /**
- * @brief Class for creating .tex files with plots of HOG
+ * @brief Класс для создания .tex файлов для визуализации процесса
  */
-class HOGPlots{
+class texHOG{
 public:
     /**
-     * @brief Construct a new HOGPlots object
+     * @brief Конструктор класса
      * 
      */
-    HOGPlots() = default;
+    texHOG() = default;
 
     /**
-     * @brief Method to show the grid of cells on image
+     * @brief Метод для создания .tex файла с графиком гистограммы ячейки
      * 
-     * @param thickness Grid line thickness
-     * @param cellSize Cell size in pixels
+     * @param cellHistogram Гистограмма ячейки
+     * @param blockWidth Ширина блока гистограммы
+     * @param executablePath Путь к файлу .tex
      */
-    void HOGgrid(cv::Mat& image, float thickness, int cellSize);
+    void cellHistogramPlot(std::vector<float> cellHistogram, int binWidth, const std::string& executablePath);
 
     /**
-     * @brief Method for creating a .tex file with the histogram of given cell
+     * @brief Метод для создания файла .tex с гистограммами ячеек в заданном блоке
      * 
-     * @param cellHistogram vector of cell histogram values
-     * @param blockWidth width of the histogram block
+     * @param blockHistogram Матрица гистограмм ячеек
+     * @param blockWidth Ширина блока гистограммы
+     * @param executablePath Путь к файлу .tex
      */
-    void cellHistogramPlot(std::vector<float> cellHistogram, int blockWidth, const std::string& executablePath);
+    void blockHistogramPlot(std::vector<std::vector<float>> blockHistogram, int binWidth, const std::string& executablePath);
 };
 
 #endif 

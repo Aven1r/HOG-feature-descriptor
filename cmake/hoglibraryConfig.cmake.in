@@ -1,0 +1,11 @@
+@PACKAGE_INIT@
+
+set(hoglibrary_INCLUDE_DIRS "@CMAKE_INSTALL_PREFIX@/include")
+set(hoglibrary_LIBRARIES "@CMAKE_INSTALL_PREFIX@/lib/libhoglibrary.a")
+
+# Additional variables or configurations specific to your library
+
+# Provide imported target (optional)
+add_library(hoglibrary INTERFACE)
+target_include_directories(hoglibrary INTERFACE ${hoglibrary_INCLUDE_DIRS})
+target_link_libraries(hoglibrary INTERFACE ${hoglibrary_LIBRARIES})

@@ -59,6 +59,7 @@ public: // Публичные методы для визуализации
     /**
      * @brief Метод для отображения сетки ячеек на изображении
      * 
+     * @param image Входное изображение
      * @param thickness Толщина линий сетки
      * @param cellSize Размер ячейки в пикселях
      */
@@ -72,7 +73,6 @@ public:
      * @brief Метод для вычисления гистограмм HOG
      * 
      * @param image Входное изображение
-     * @return std::vector<float> - Вектор гистограммы HOG для изображения
      */
     void computeHOG(cv::Mat& image);
 
@@ -138,7 +138,7 @@ private:
     /**
      * @brief Функция для нормализации значений из гистограмм HOG для объедененных ячеек из блока
      * 
-     * @param block Вектор значений, представляющих гистограммы ячеек для всего блока
+     * @param block_histogram Вектор значений, представляющих гистограммы ячеек для всего блока
      */
     void normalizeBlockHistogram(std::vector<float>& block_histogram);
 

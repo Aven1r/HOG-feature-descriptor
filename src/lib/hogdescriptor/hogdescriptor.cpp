@@ -1,9 +1,8 @@
-#include <hogdescriptor/hogdescriptor.hpp>
+#include "include/hogdescriptor/hogdescriptor.hpp"
 #include <iostream>
 #include <fstream>
 #include <filesystem>
 
-namespace fs = std::filesystem;
 
 //Проверка на валидность полей класса HOGDescriptor
 void check_ctor_params(size_t blockSize, size_t cellSize, size_t stride, size_t binNumber, size_t gradType){
@@ -311,34 +310,34 @@ void HOGDescriptor::HOGgrid(cv::Mat& image, float thickness, int cellSize) {
     cv::imshow("HOG Grid", imageWithCells);
 }
 
-void HOGDescriptor::saveVectorData(const std::string& executablePath, const std::string& vectorName){
+// void HOGDescriptor::saveVectorData(const std::string& executablePath, const std::string& vectorName){
     
-    fs::path directoryPath = fs::path(executablePath);
-    if (!fs::exists(directoryPath)){
-        std::cerr << "Error: The path does not exist." << std::endl;
-    }
+//     fs::path directoryPath = fs::path(executablePath);
+//     if (!fs::exists(directoryPath)){
+//         std::cerr << "Error: The path does not exist." << std::endl;
+//     }
 
-    // Path to the folder where the plots will be saved
-    fs::path folderPath = directoryPath / "vectors";
+//     // Path to the folder where the plots will be saved
+//     fs::path folderPath = directoryPath / "vectors";
 
-    // Create the folder if it doesn't exist
-    if (!fs::exists(folderPath))
-        fs::create_directory(folderPath);
+//     // Create the folder if it doesn't exist
+//     if (!fs::exists(folderPath))
+//         fs::create_directory(folderPath);
 
-    // Create the file path
-    fs::path filePath = folderPath / vectorName;
+//     // Create the file path
+//     fs::path filePath = folderPath / vectorName;
 
-    // Open the file
-    std::ofstream file(filePath);
-    if (!file)
-    {
-        std::cout << "Error opening file." << std::endl;
-        return;
-    }
+//     // Open the file
+//     std::ofstream file(filePath);
+//     if (!file)
+//     {
+//         std::cout << "Error opening file." << std::endl;
+//         return;
+//     }
 
-    std::vector<float> hogVector = getHOGFeatureVector();
-    for (int i = 0; i < hogVector.size(); i++) {
-        file << hogVector[i] << " ";
-    }
-    file.close();
-}
+//     std::vector<float> hogVector = getHOGFeatureVector();
+//     for (int i = 0; i < hogVector.size(); i++) {
+//         file << hogVector[i] << " ";
+//     }
+//     file.close();
+// }

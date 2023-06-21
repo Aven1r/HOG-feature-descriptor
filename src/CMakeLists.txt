@@ -1,3 +1,9 @@
-add_subdirectory(example)
+if (SAMPLES)
+    add_subdirectory(example)
+endif()
+
 add_subdirectory(lib)
-add_subdirectory(tests)
+
+if (TESTING)
+    add_subdirectory(tests)
+endif()

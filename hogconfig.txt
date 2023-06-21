@@ -1,8 +1,0 @@
-16
-8
-8
-9
-180
-20
-/Users/avenir/vscode
-true

@@ -4,7 +4,6 @@ file (GLOB SRC
         hogdescriptor/hogdescriptor.cpp
         texvisualization/texvisualization.cpp)
 
-
 add_library(${HOG_LIBRARY} ${SRC})
 
 install(TARGETS ${HOG_LIBRARY}

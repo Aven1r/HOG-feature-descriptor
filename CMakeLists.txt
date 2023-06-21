@@ -4,7 +4,6 @@ project(hoglib_cw)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-# set(CMAKE_INSTALL_PREFIX )
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
@@ -16,8 +15,12 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 
 option(TESTING "Enable testing with doctest" OFF) # TODO
-option(SAMPLES "Compile sample program" OFF)
-option(DOXYGEN "Enable doxygen documentation" OFF)
+option(SAMPLE "Compile sample program" ON)
+option(DOXYGEN "Enable doxygen documentation" ON)
+
+if(SAMPLE)
+    set(CMAKE_INSTALL_PREFIX /Users/avenir/vscode/hoglibrary)
+endif()
 
 include(GNUInstallDirs)
 if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
@@ -43,7 +46,7 @@ if(DOXYGEN)
                 COMMENT "Generating API documentation with Doxygen"
                 VERBATIM)
         install (DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/hoglib_doc
-            DESTINATION ./bin)
+            DESTINATION ./docs)
     else ()
         message(STATUS "Couldn't find Doxygen")
     endif ()

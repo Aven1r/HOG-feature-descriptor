@@ -1,7 +1,10 @@
 @PACKAGE_INIT@
 
-set(hoglibrary_INCLUDE_DIRS "@CMAKE_INSTALL_PREFIX@/include")
-set(hoglibrary_LIBRARIES "@CMAKE_INSTALL_PREFIX@/lib/libhoglibrary.a")
+if (TargetPlatform STREQUAL "Windows")
+    set(hoglibrary_LIBRARIES "@CMAKE_INSTALL_PREFIX@/lib/hoglibrary.lib")
+else()
+    set(hoglibrary_LIBRARIES "@CMAKE_INSTALL_PREFIX@/lib/hoglibrary.a")
+elseif()
 
 # Additional variables or configurations specific to your library
 

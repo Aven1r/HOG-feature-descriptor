@@ -5,6 +5,7 @@ project(hoglib_cw)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# Include cmake configurations from ./cmake folder
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 include(build_prefix)
@@ -13,14 +14,6 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 set(CMAKE_C_EXTENSIONS OFF)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
-
-option(TESTING "Enable testing with doctest" OFF) # TODO
-option(SAMPLE "Compile sample program" ON)
-option(DOXYGEN "Enable doxygen documentation" ON)
-
-if(SAMPLE)
-    set(CMAKE_INSTALL_PREFIX /Users/avenir/vscode/hoglibrary)
-endif()
 
 include(GNUInstallDirs)
 if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
@@ -34,6 +27,7 @@ endif(CMAKE_COMPILER_IS_GNUCXX)
 find_package(OpenCV REQUIRED)
 include_directories( ${OpenCV_INCLUDE_DIRS} )
 
+# Doxygen documentation
 if(DOXYGEN)
     find_package(Doxygen)
     if (DOXYGEN_FOUND)

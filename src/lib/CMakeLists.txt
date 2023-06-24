@@ -6,11 +6,13 @@ file (GLOB SRC
 
 add_library(${HOG_LIBRARY} ${SRC})
 
+# Install library into the ./lib folder
 install(TARGETS ${HOG_LIBRARY}
         LIBRARY DESTINATION lib
         ARCHIVE DESTINATION lib
         RUNTIME DESTINATION bin)
 
+# Install library header files
 install(DIRECTORY hogdescriptor/include/hogdescriptor
         DESTINATION include
         FILES_MATCHING PATTERN "*.hpp")
@@ -19,6 +21,7 @@ install(DIRECTORY texvisualization/include/texvisualization
         DESTINATION include
         FILES_MATCHING PATTERN "*.hpp")
 
+# Install the configuration file for library integration in other CMake projects
 configure_file(../../cmake/hoglibraryConfig.cmake.in ${CMAKE_CURRENT_BINARY_DIR}/hoglibraryConfig.cmake @ONLY)
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/hoglibraryConfig.cmake DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/hoglibrary)
 

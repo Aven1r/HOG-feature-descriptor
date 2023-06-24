@@ -1,5 +1,7 @@
 @PACKAGE_INIT@
 
+# Determine the platform library extension
+
 if (TargetPlatform STREQUAL "Windows")
     set(hoglibrary_LIBRARIES "@CMAKE_INSTALL_PREFIX@/lib/hoglibrary.lib")
 else()

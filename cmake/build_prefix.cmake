@@ -1,4 +1,8 @@
-# Determine the target platform
+# Options to whether build an executable and doxygen or not
+option(SAMPLE "Compile sample program" ON)
+option(DOXYGEN "Enable doxygen documentation" ON)
+
+# Determine the target platform (For library extension identification)
 if(WIN32)
   set(TargetPlatform "Windows")
 elseif(APPLE)
@@ -42,4 +46,3 @@ message(STATUS "Vcpkg Toolchain File: ${VcpkgToolchainFile}")
 
 # Configure the project using the Vcpkg toolchain file
 set(CMAKE_TOOLCHAIN_FILE ${VcpkgToolchainFile} CACHE STRING "")
-

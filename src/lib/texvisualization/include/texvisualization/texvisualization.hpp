@@ -24,8 +24,9 @@ public:
      * @param cellHistogram Гистограмма ячейки
      * @param binWidth Ширина блока гистограммы
      * @param executablePath Путь к файлу .tex
+     * @param plotName Имя выходного файла
      */
-    void cellHistogramPlot(std::vector<float> cellHistogram, int binWidth, const std::string& executablePath);
+    void cellHistogramPlot(std::vector<float> cellHistogram, int binWidth, const std::string& executablePath, const std::string& plotName);
 
     /**
      * @brief Метод для создания файла .tex с гистограммами ячеек в заданном блоке
@@ -33,8 +34,9 @@ public:
      * @param blockHistogram Матрица гистограмм ячеек
      * @param binWidth Ширина блока гистограммы
      * @param executablePath Путь к файлу .tex
+     * @param plotName Имя выходного файла
      */
-    void blockHistogramPlot(std::vector<std::vector<float>> blockHistogram, int binWidth, const std::string& executablePath);
+    void blockHistogramPlot(std::vector<std::vector<float>> blockHistogram, int binWidth, const std::string& executablePath, const std::string& plotName);
 };
 
 #endif 

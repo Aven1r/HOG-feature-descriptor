@@ -8,9 +8,16 @@
 
 namespace fs = std::filesystem;
 
-void texHOG::cellHistogramPlot(std::vector<float> values, int binWidth, const std::string& executablePath){
+void texHOG::cellHistogramPlot(std::vector<float> values, int binWidth, const std::string& executablePath, const std::string& plotName){
     
     fs::path directoryPath = fs::path(executablePath);
+
+    if (!fs::exists(directoryPath)){
+        std::cerr << "Error: The path does not exist." << std::endl;
+    }
+
+    if (!fs::exists(directoryPath))
+        fs::create_directory(directoryPath);
 
     // Path to the folder where the plots will be saved
     fs::path folderPath = directoryPath / "plots";
@@ -20,7 +27,7 @@ void texHOG::cellHistogramPlot(std::vector<float> values, int binWidth, const st
         fs::create_directory(folderPath);
 
     // Create the file path
-    fs::path filePath = folderPath / "cellhistogram.tex";
+    fs::path filePath = folderPath / plotName;
 
     // Open the file
     std::ofstream file(filePath);
@@ -78,12 +85,16 @@ void texHOG::cellHistogramPlot(std::vector<float> values, int binWidth, const st
               << "\\end{tikzpicture}\n"
               << "\\end{document}\n";
 
-    file << "Histogram created successfully." << std::endl;
+    std::cout << "Cell-plot успешно создан!" << std::endl;
 }
 
-void texHOG::blockHistogramPlot(std::vector<std::vector<float>> blockHistogram, int binWidth, const std::string& executablePath) {
+void texHOG::blockHistogramPlot(std::vector<std::vector<float>> blockHistogram, int binWidth, const std::string& executablePath, const std::string& plotName) {
 
     fs::path directoryPath = fs::path(executablePath);
+
+    if (!fs::exists(directoryPath)){
+        std::cerr << "Error: The path does not exist." << std::endl;
+    }
 
     // Path to the folder where the plots will be saved
     fs::path folderPath = directoryPath / "plots";
@@ -93,7 +104,7 @@ void texHOG::blockHistogramPlot(std::vector<std::vector<float>> blockHistogram, 
         fs::create_directory(folderPath);
 
     // Create the file path
-    fs::path filePath = folderPath / "blockhistogram.tex";
+    fs::path filePath = folderPath / plotName;
 
     // Open the file
     std::ofstream file(filePath);
@@ -162,5 +173,5 @@ void texHOG::blockHistogramPlot(std::vector<std::vector<float>> blockHistogram, 
             << "\\end{document}\n";
 
     
-    std::cout << "Block-plot created successfully." << std::endl;
+    std::cout << "Block-plot успешно создан!" << std::endl;
 }

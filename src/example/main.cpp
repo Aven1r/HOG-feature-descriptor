@@ -1,7 +1,7 @@
 /**
  * @file main.cpp
  * @author Андрей Кадомцев (m2204942@edu.misis.ru)
- * @brief Тестовая программа - консольное приложение с параметрами командной строки для работы с библиотекой.
+ * @brief Тестовая программа - консольное приложение для работы с библиотекой.
  * @version 0.1
  * @date 2023-06-08
  * 
@@ -14,19 +14,21 @@
 #include "opencv2/highgui/highgui.hpp"
 #include <iostream>
 
+
 /**
- * @brief Cтруктура данных для файла hogconfig.txt
+ * @brief Cтруктура данных файла hogconfig.txt
  * 
  */
 struct HOGSettings {
-    int blockSize;
-    int cellSize;
-    int stride;
-    int binNumber;
-    int gradType;
-    int binWidth;
-    std::string folderPath;
-    std::string saveVectorData;
+    int blockSize; //!< Размер блока скользящего окна в пикселях
+    int cellSize; //!< Размер ячейки в пикселях
+    int stride; //!< Шаг скользящего окна в пикселях
+    int binNumber; //!< Количество корзин в гистограмме каждой ячейки
+    int gradType; //!< Тип вычисления градиента (беззнаковый или со знаком)
+    int binWidth; //!< Ширина корзин в гистограмме каждой ячейки
+    std::string folderPath; //!< Путь к папкe для сохранения файлов
+    bool saveVectorData; //!< Разрешение на сохранение итогового вектора алгоритма
+    bool saveTexPlots; //!< Разрешение на сохранение .tex файлов с графиками
 };
 
 /**
@@ -39,7 +41,7 @@ HOGSettings loadSettingsFromFile() {
     std::string currentdir = INSTALL_PATH;
     std::ifstream file(currentdir + "/hogconfig.txt");
     if (file.is_open()) {
-        // Read parameters from the file
+
         file >> settings.blockSize;
         file >> settings.cellSize;
         file >> settings.stride;
@@ -48,13 +50,33 @@ HOGSettings loadSettingsFromFile() {
         file >> settings.binWidth;
         file >> settings.folderPath;
         file >> settings.saveVectorData;
+        file >> settings.saveTexPlots;
         
         file.close();
-        std::cout << "Settings loaded from config.txt" << std::endl;
+        std::cout << "Параметры успешно загружены из файла hogconfig!" << std::endl;
     } else {
-        throw std::runtime_error("Unable to open the file for reading.");
+        throw std::runtime_error("Невозможно открыть файл для чтения.");
     }
     return settings;
+}
+
+void saveSettingsToFile(const HOGSettings& settings) {
+    std::ofstream file("hogconfig.txt");
+    if (file.is_open()) {
+        file << settings.blockSize << std::endl;
+        file << settings.cellSize << std::endl;
+        file << settings.stride << std::endl;
+        file << settings.binNumber << std::endl;
+        file << settings.gradType << std::endl;
+        file << settings.binWidth << std::endl;
+        file << settings.folderPath << std::endl;
+        file << settings.saveVectorData << std::endl;
+        file << settings.saveTexPlots << std::endl;
+        file.close();
+        std::cout << "Настройки сохранены" << std::endl;
+    } else {
+        std::cerr << "Не удалось открыть файл для записи." << std::endl;
+    }
 }
 
 /**
@@ -68,111 +90,183 @@ int main(int argc, char** argv){
     std::string currentdir = INSTALL_PATH;
     HOGSettings settings = loadSettingsFromFile();
     if (argc < 2 || (argc == 2 && (std::string(argv[1]) == "--help" || std::string(argv[1]) == "-h"))) {
-        std::cout << "Usage of hogLibrary example program: " << std::endl;
-        std::cout << "hoglib -ex [1-3] : Shows how Library works on an example (1, 2 or 3)" << std::endl;
-        std::cout << "hoglib -settings : Shows current settings of the library and allows to change them" << std::endl;
-        std::cout << "hoglib -tex i j : Saves a .tex file with the histogram in the cell and block (i, j) of the test image" << std::endl;
-        std::cout << "hoglib <path to image> : Shows the library's algorithm work on your image" << std::endl;
+        std::cout << "Использование программы: " << std::endl;
+        std::cout << "./hogexe -test [1-3]: Демонстрация работы алгоритма на выбранном примере (1, 2 или 3)" << std::endl;
+        std::cout << "./hoglib -settings: Показать настройки программы и алгоритма" << std::endl;
+        std::cout << "./hoglib -p <path to image> : Демонстрация работы алгоритма на вашем изображении" << std::endl;
     }
-    else if (std::string(argv[1]) == "-settings" && argc == 2) {
-        std::cout << "------------------------CURRENT SETTINGS-------------------------" << std::endl;
+    else if ((std::string(argv[1]) == "-settings" || std::string(argv[1]) == "-s") && argc == 2) {
+        std::cout << "------------------------Текущие настройки-------------------------" << std::endl;
         std::cout << "Block size: " << settings.blockSize << std::endl;
         std::cout << "Cell size: " << settings.cellSize << std::endl;
         std::cout << "Stride: " << settings.stride << std::endl;
         std::cout << "Bin number: " << settings.binNumber << std::endl;
         std::cout << "Gradient type: " << settings.gradType << std::endl;
         std::cout << "Bin width: " << settings.binWidth << std::endl;
-        std::cout << "Folder path: " << settings.folderPath << std::endl;
-        std::cout << "Permissions to save vector after hog computation: " << settings.saveVectorData << std::endl;
+        std::cout << "-----Прочее-----" << std::endl;
+        std::cout << "Путь для сохранения данных: " << settings.folderPath << std::endl;
+        std::cout << "Разрешение на сохранение итогового HOG вектора: " << settings.saveVectorData << std::endl;
+        std::cout << "Разрешение на сохранение .tex файлов с графиками: " << settings.saveTexPlots << std::endl;
         std::cout << "------------------------------------------------------------------" << std::endl;
-        std::cout << "If you want to change settings, please take a look at the settings.txt in the root folder of the project and rerun the installation process: " << INSTALL_PATH << std::endl;
+        std::cout << "Чтобы сменить параметры алгоритма введите 1" << std::endl;
+        std::cout << "Чтобы изменить путь для сохранения данных введите 2" << std::endl;
+        std::cout << "Чтобы изменить разрешение на сохранение вектора введите 3" << std::endl;
+        std::cout << "Чтобы изменить разрешение на сохранение .tex файлов введите 4" << std::endl;
+        std::cout << "Чтобы выйти из меню введите любое другое значение" << std::endl;
+        int choice;
+        std::cin >> choice;
+        if (choice == 1){
+            std::cout << "Введите новое значение Block Size" << std::endl;
+            std::cin >> settings.blockSize;
+            std::cout << "Введите новое значение Cell Size" << std::endl;
+            std::cin >> settings.cellSize;
+            std::cout << "Введите новое значение Gradient Type (360 or 180)" << std::endl;
+            std::cin >> settings.gradType;
+            settings.binWidth = settings.gradType / settings.binNumber;
+            settings.stride = settings.blockSize / 2;
+            HOGDescriptor checkhogparams(settings.blockSize, settings.cellSize, settings.stride, settings.binNumber, settings.gradType);
+            saveSettingsToFile(settings);
+            std::cout << "Изменения сохранены" << std::endl;
+        }
+        else if (choice == 2){
+            std::cout << "Введите новый путь для сохранения данных" << std::endl;
+            std::cin >> settings.folderPath;
+            saveSettingsToFile(settings);
+            std::cout << "Изменения сохранены" << std::endl;
+        }
+        else if (choice == 3){
+            if (settings.saveVectorData == true){
+                settings.saveVectorData = false;
+                saveSettingsToFile(settings);
+            }
+            else{
+                settings.saveVectorData = true;
+                saveSettingsToFile(settings);
+            }
+        }
+        else if (choice == 4){
+            if (settings.saveTexPlots == true){
+                settings.saveTexPlots = false;
+                saveSettingsToFile(settings);
+            }
+            else{
+                settings.saveTexPlots = true;
+                saveSettingsToFile(settings);
+            }
+        }
+        else{
+            std::cout << "Выход из меню настроек" << std::endl;
+        }
     }
-    else if (std::string(argv[1]) == "-tex") {
-        if (argc != 4) {
-            std::cerr << "Invalid input.\nPlease specify index for cell in the format i j, where i represents the row and j represents the column." << std::endl;
-            return 0;
-        }
-        if (settings.folderPath == "NONE"){
-            std::cerr << "Folder path not specified. Please specify it in the settings." << std::endl;
-            return 0;
-        }
-        else {
-            texHOG tex;
-            HOGDescriptor hog(settings.blockSize, settings.cellSize, settings.stride, settings.binNumber, settings.gradType);
-            std::string imagepath = currentdir + "/images/test2.jpg";
-            cv::Mat img = cv::imread(imagepath);
-            hog.computeHOG(img);
-            auto vec = hog.getCellHistogram(std::stoi(argv[2]), std::stoi(argv[3]));
-            tex.cellHistogramPlot(vec, settings.binWidth, settings.folderPath);
-            auto blockVec = hog.getBlockHistogram(std::stoi(argv[2]), std::stoi(argv[3]));
-            tex.blockHistogramPlot(blockVec, settings.binWidth, settings.folderPath);
-            std::cout << "Done!\nHistograms saved to " << settings.folderPath << std::endl;
-        }
-    }
-    else if (std::string(argv[1]) == "-ex") {
+    else if (std::string(argv[1]) == "-test" || std::string(argv[1]) == "-t") {
         if (argc != 3) {
-            std::cerr << "Invalid input.\nPlease specify example number (1, 2 or 3)." << std::endl;
+            std::cerr << "Некорректный ввод.\nПодалуйста, введите номер тестового изображения (1, 2 или 3)." << std::endl;
         }
         else {
-            HOGDescriptor hog(settings.blockSize, settings.cellSize, settings.stride, settings.binNumber, settings.gradType);
             int example = std::stoi(argv[2]);
-            std::string imagepath = currentdir;
             switch (example)
             {
                 case 1:{
+                    HOGDescriptor hog(32, 16);
                     cv::Mat img = cv::imread(currentdir + "/images/test1.jpg");
                     hog.computeHOG(img);
-                    cv::imshow("Original image", img);
-                    hog.HOGgrid(img, 1, settings.cellSize);
-                    hog.visualizeHOG(2, false);
-                    if (settings.saveVectorData == "true") {
+                    if (settings.saveVectorData) {
                         hog.saveVectorData(settings.folderPath, "test1_vector.txt");
                     }
+                    if (settings.saveTexPlots) {
+                        texHOG plots;
+                        auto cellhist = hog.getCellHistogram(6, 8);
+                        plots.cellHistogramPlot(cellhist, settings.binWidth, settings.folderPath, "test1_cellhist.tex");
+                        auto blockhist = hog.getBlockHistogram(6, 8);
+                        plots.blockHistogramPlot(blockhist, settings.binWidth, settings.folderPath, "test1_blockhist.tex");
+                    }
+                    cv::imshow("Original image", img);
+                    hog.HOGgrid(img, 1, 16);
+                    hog.visualizeHOG(2, false);
                     cv::waitKey(0);
                     break;
                 }
                 case 2:{
+                    HOGDescriptor hog(20, 10);
                     cv::Mat img = cv::imread(currentdir + "/images/test2.jpg");
                     hog.computeHOG(img);
-                    cv::imshow("Original image", img);
-                    hog.HOGgrid(img, 1, settings.cellSize);
-                    hog.visualizeHOG(1, false);
-                    if (settings.saveVectorData == "true") {
+                    if (settings.saveVectorData) {
                         hog.saveVectorData(settings.folderPath, "test2_vector.txt");
                     }
+                    if (settings.saveTexPlots) {
+                        texHOG plots;
+                        auto cellhist = hog.getCellHistogram(7, 9);
+                        plots.cellHistogramPlot(cellhist, settings.binWidth, settings.folderPath, "test2_cellhist.tex");
+                        auto blockhist = hog.getBlockHistogram(6, 8);
+                        plots.blockHistogramPlot(blockhist, settings.binWidth, settings.folderPath, "test2_blockhist.tex");
+                    }
+                    cv::imshow("Original image", img);
+                    hog.HOGgrid(img, 1, 8);
+                    hog.visualizeHOG(1, true);
                     cv::waitKey(0);
                     break;
                 }
                 case 3:{
+                    HOGDescriptor hog(50, 25);
                     cv::Mat img = cv::imread(currentdir + "/images/test3.jpg");
                     hog.computeHOG(img);
                     cv::imshow("Original image", img);
-                    hog.HOGgrid(img, 1, settings.cellSize);
-                    hog.visualizeHOG(1, false);
-                    if (settings.saveVectorData == "true") {
+                    hog.HOGgrid(img, 1, 12);
+                    hog.visualizeHOG(1, true);
+                    if (settings.saveVectorData) {
                         hog.saveVectorData(settings.folderPath, "test3_vector.txt");
+                    }
+                    if (settings.saveTexPlots) {
+                        texHOG plots;
+                        auto cellhist = hog.getCellHistogram(7, 9);
+                        plots.cellHistogramPlot(cellhist, settings.binWidth, settings.folderPath, "test3_cellhist.tex");
+                        auto blockhist = hog.getBlockHistogram(6, 8);
+                        plots.blockHistogramPlot(blockhist, settings.binWidth, settings.folderPath, "test3_blockhist.tex");
                     }
                     cv::waitKey(0);
                     break;
                 }
                 default:
-                    std::cerr << "Invalid input.\nPlease specify example number (1, 2 or 3)." << std::endl;
+                    std::cerr << "Некорректный ввод.\nПожалуйста, введите номер тестового изображения (1, 2 или 3)." << std::endl;
                     break;
             }
         }
     }
-    else {
-        std::string imagepath = argv[1];
+    else if (std::string(argv[1]) == "-p") {
+        if (argc != 3) {
+            std::cerr << "Некорректный ввод.\nПожалуйста, введите путь до изображения." << std::endl;
+        }
+        std::string imagepath = argv[2];
+
+        // Extract the filename from the image path
+        std::string filename = imagepath.substr(imagepath.find_last_of("/\\") + 1);
+        // Remove the file extension from the filename
+        std::string vectorFilename = filename.substr(0, filename.find_last_of("."));
+        
         cv::Mat img = cv::imread(imagepath);
         HOGDescriptor hog(settings.blockSize, settings.cellSize, settings.stride, settings.binNumber, settings.gradType);
         hog.computeHOG(img);
         cv::imshow("Original image", img);
         hog.HOGgrid(img, 1, settings.cellSize);
         hog.visualizeHOG(1, false);
-        if (settings.saveVectorData == "true") {
-            hog.saveVectorData(settings.folderPath, (std::string(argv[1]) + "_vector.txt"));
+        if (settings.saveVectorData) {
+            hog.saveVectorData(settings.folderPath, (vectorFilename + "_vector.txt"));
+        }
+        if (settings.saveTexPlots) {
+            texHOG plots;
+            auto cellhist = hog.getCellHistogram(7, 9);
+            plots.cellHistogramPlot(cellhist, settings.binWidth, settings.folderPath, (vectorFilename + "_cellhist.tex"));
+            auto blockhist = hog.getBlockHistogram(6, 8);
+            plots.blockHistogramPlot(blockhist, settings.binWidth, settings.folderPath, (vectorFilename + "_blockhist.tex"));
         }
         cv::waitKey(0);
+    }
+    else {
+        std::cout << "Примеры использования программы: " << std::endl;
+        std::cout << "./hogexe -test 2: Демонстрация работы алгоритма на втором тестовом изображении" << std::endl;
+        std::cout << "./hoglib -settings: Показать настройки программы и алгоритма" << std::endl;
+        std::cout << "./hoglib -p /path/to/image: Демонстрация работы алгоритма на пользовательском изображении" << std::endl;
+        std::cout << "./hoglib -help: Справка по использованию программы" << std::endl;
     }
     return 0;
 }

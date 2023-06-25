@@ -92,8 +92,8 @@ int main(int argc, char** argv){
     if (argc < 2 || (argc == 2 && (std::string(argv[1]) == "--help" || std::string(argv[1]) == "-h"))) {
         std::cout << "Использование программы: " << std::endl;
         std::cout << "./hogexe -test [1-3]: Демонстрация работы алгоритма на выбранном примере (1, 2 или 3)" << std::endl;
-        std::cout << "./hoglib -settings: Показать настройки программы и алгоритма" << std::endl;
-        std::cout << "./hoglib -p <path to image> : Демонстрация работы алгоритма на вашем изображении" << std::endl;
+        std::cout << "./hogexe -settings: Показать настройки программы и алгоритма" << std::endl;
+        std::cout << "./hogexe -p <path to image> : Демонстрация работы алгоритма на вашем изображении" << std::endl;
     }
     else if ((std::string(argv[1]) == "-settings" || std::string(argv[1]) == "-s") && argc == 2) {
         std::cout << "------------------------Текущие настройки-------------------------" << std::endl;
@@ -264,9 +264,9 @@ int main(int argc, char** argv){
     else {
         std::cout << "Примеры использования программы: " << std::endl;
         std::cout << "./hogexe -test 2: Демонстрация работы алгоритма на втором тестовом изображении" << std::endl;
-        std::cout << "./hoglib -settings: Показать настройки программы и алгоритма" << std::endl;
-        std::cout << "./hoglib -p /path/to/image: Демонстрация работы алгоритма на пользовательском изображении" << std::endl;
-        std::cout << "./hoglib -help: Справка по использованию программы" << std::endl;
+        std::cout << "./hogexe -settings: Показать настройки программы и алгоритма" << std::endl;
+        std::cout << "./hogexe -p /path/to/image: Демонстрация работы алгоритма на пользовательском изображении" << std::endl;
+        std::cout << "./hogexe -help: Справка по использованию программы" << std::endl;
     }
     return 0;
 }

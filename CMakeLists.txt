@@ -5,10 +5,21 @@ project(hoglib_cw)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# Include cmake configurations from ./cmake folder
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 include(build_prefix)
+
+# Add build flags for documentation and sample program
+set(SAMPLE ${SAMPLE})
+set(DOXYGEN ${DOXYGEN})
+
+if(SAMPLE)
+    set(SAMPLE $ENV{SAMPLE})
+endif()
+
+if(DOXYGEN)
+    set(DOXYGEN $ENV{DOXYGEN})
+endif()
 
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 set(CMAKE_C_EXTENSIONS OFF)
@@ -27,7 +38,6 @@ endif(CMAKE_COMPILER_IS_GNUCXX)
 find_package(OpenCV REQUIRED)
 include_directories( ${OpenCV_INCLUDE_DIRS} )
 
-# Doxygen documentation
 if(DOXYGEN)
     find_package(Doxygen)
     if (DOXYGEN_FOUND)

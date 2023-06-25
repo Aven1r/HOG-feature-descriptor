@@ -63,7 +63,20 @@ void HOGDescriptor::computeHOG(cv::Mat& image){
         throw std::runtime_error("Invalid image!");
     if (image.rows < blockSize_ || image.cols < blockSize_)
         throw std::runtime_error("The image is smaller than blocksize!");
-    
+    if (image.empty()) {
+        throw std::runtime_error("The image is empty!");
+    }
+
+    // Check if the image is grayscale
+    for (int row = 0; row < image.rows; ++row) {
+        for (int col = 0; col < image.cols; ++col) {
+            const cv::Vec3b& pixel = image.at<cv::Vec3b>(row, col);
+            if (pixel[0] != pixel[1] || pixel[0] != pixel[2]) {
+                throw std::runtime_error("The image is not grayscale!");
+            }
+        }
+    }
+
     // Извлечение амплитуды и направленности для каждого пикселя входного изображения
     computeGradientFeatures(image);
 

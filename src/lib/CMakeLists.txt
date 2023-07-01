@@ -21,8 +21,4 @@ install(DIRECTORY texvisualization/include/texvisualization
         DESTINATION include
         FILES_MATCHING PATTERN "*.hpp")
 
-# Install the configuration file for library integration in other CMake projects
-configure_file(../../cmake/hoglibraryConfig.cmake.in ${CMAKE_CURRENT_BINARY_DIR}/hoglibraryConfig.cmake @ONLY)
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/hoglibraryConfig.cmake DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/hoglibrary)
-
 target_link_libraries(${HOG_LIBRARY} PUBLIC ${OpenCV_LIBS})

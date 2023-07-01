@@ -1,13 +1,9 @@
-# Options to whether build an executable and doxygen or not
-option(SAMPLE "Compile sample program" ON)
-option(DOXYGEN "Enable doxygen documentation" ON)
-
 # Determine the target platform (For library extension identification)
-if(WIN32)
+if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
   set(TargetPlatform "Windows")
-elseif(APPLE)
+elseif(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
   set(TargetPlatform "macOS")
-elseif(UNIX)
+elseif(CMAKE_SYSTEM_NAME STREQUAL "Linux")
   set(TargetPlatform "Linux")
 else()
   message(FATAL_ERROR "Unsupported platform")
@@ -46,3 +42,7 @@ message(STATUS "Vcpkg Toolchain File: ${VcpkgToolchainFile}")
 
 # Configure the project using the Vcpkg toolchain file
 set(CMAKE_TOOLCHAIN_FILE ${VcpkgToolchainFile} CACHE STRING "")
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/bin.dbg)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR}/bin.rel)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELWITHDEBINFO ${CMAKE_SOURCE_DIR}/bin.relwithdbg)

@@ -7,8 +7,7 @@
 
 namespace fs = std::filesystem;
 
-
-//Проверка на валидность полей класса HOGDescriptor
+// Parameters check
 void check_ctor_params(size_t blockSize, size_t cellSize, size_t stride, size_t binNumber, size_t gradType){
     if (blockSize < 2){
         throw std::invalid_argument("HOGDescriptor: blockSize must be >= 2");
@@ -58,7 +57,7 @@ HOGDescriptor::~HOGDescriptor() {}
 
 void HOGDescriptor::computeHOG(cv::Mat& image){
     
-    // Проверка на валидность входного изображения
+    // Check if the image is valid
     if (!image.data)
         throw std::runtime_error("Invalid image!");
     if (image.rows < blockSize_ || image.cols < blockSize_)
@@ -77,13 +76,13 @@ void HOGDescriptor::computeHOG(cv::Mat& image){
         }
     }
 
-    // Извлечение амплитуды и направленности для каждого пикселя входного изображения
+    // Compute the gradient features
     computeGradientFeatures(image);
 
-    // Подсчет гистограм для каждой из ячеек изображения
+    // Compute the cell histograms
     cellHistograms_ = computeCellHistograms(imageMagnitude_, imageOrientation_, cellHistograms_); //18,144 values (cells_y*cells_x*binNumber_)
 
-    // Подсчет финального вектора путем объединения нормализованных значений ячеек внутри скользящего блока
+    // Final HOG feature vector calculation
     hogFeatureVector_ = calculateHOGVector(cellHistograms_);
 
     hogFlag_ = true;
@@ -101,19 +100,19 @@ void HOGDescriptor::computeGradientFeatures(cv::Mat& image){
 
 std::vector<std::vector<std::vector<float>>> HOGDescriptor::computeCellHistograms(cv::Mat magnitude, cv::Mat orientation, std::vector<std::vector<std::vector<float>>>& cell_histograms){
     
-    // Количество ячеек в каждом направлении
+    // Cells number in each dimension
     size_t cells_y = static_cast<int>(magnitude.rows / cellSize_);
     size_t cells_x = static_cast<int>(magnitude.cols / cellSize_);
 
     cell_histograms.resize(cells_y);
 
-    // Проход по всем ячейкам изображения
+    // Iterate over each cell
     for (size_t i = 0; i < cells_y; ++i) {
         cell_histograms[i].resize(cells_x);
         for (size_t j = 0; j < cells_x; ++j) {
-            // Создание матрицы с областью ячейки
+            // Create a cell matrix variable
             cv::Rect cell = cv::Rect(cellSize_ * j, cellSize_ * i, cellSize_, cellSize_);
-            // Подсчет ее гистограмы
+            // Calculate its histogram
             const std::vector<float> cell_histogram = cellHistogram(cv::Mat(imageMagnitude_, cell), cv::Mat(imageOrientation_, cell));
             cell_histograms[i][j] = cell_histogram;
         }
@@ -125,6 +124,7 @@ std::vector<std::vector<std::vector<float>>> HOGDescriptor::computeCellHistogram
 std::vector<float> HOGDescriptor::cellHistogram(const cv::Mat& cellMagnitude, const cv::Mat& cellOrientation){
     std::vector<float> cell_histogram(binNumber_);
     if(gradType_ == GRADIENT_SIGNED) {
+        // Iterate over each cells pixel for the histogram
         for (size_t i = 0; i < cellMagnitude.rows; ++i) {
             const float* rowMagnitude = cellMagnitude.ptr<float>(i);
             const float* rowOrientation = cellOrientation.ptr<float>(i);
@@ -196,18 +196,17 @@ std::vector<float> HOGDescriptor::getHOGFeatureVector(){
 const std::vector<float> HOGDescriptor::calculateHOGVector(const std::vector<std::vector<std::vector<float>>>& cell_histograms) {
     std::vector<float> hog_vector;
 
-    // 
     int imageWidth = cell_histograms[0].size() * cellSize_;
     int imageHeight = cell_histograms.size() * cellSize_;
     int blocksX = (imageWidth - blockSize_) / stride_ + 1;
     int blocksY = (imageHeight - blockSize_) / stride_ + 1;
 
-    // Проход по блокам изображения
+    // Iterate over each block
     for (int y = 0; y < blocksY; y++) {
         for (int x = 0; x < blocksX; x++) {
             std::vector<float> blockHistogram;
 
-            // Проход по ячейкам внутри блока
+            // Iterate over each cell in the block
             for (int i = y * stride_ / cellSize_; i < (y * stride_ + blockSize_) / cellSize_; i++) {
                 for (int j = x * stride_ / cellSize_; j < (x * stride_ + blockSize_) / cellSize_; j++){
                     blockHistogram.insert(blockHistogram.end(), cell_histograms[i][j].begin(), cell_histograms[i][j].end());
@@ -216,7 +215,7 @@ const std::vector<float> HOGDescriptor::calculateHOGVector(const std::vector<std
             // Block normalization (L2-Hys)
             normalizeBlockHistogram(blockHistogram);
 
-            // Добавление подсчитанного вектора к финальному
+            // Add the block vector to the final vector
             hog_vector.insert(hog_vector.end(), blockHistogram.begin(), blockHistogram.end());
         }
     }
@@ -253,17 +252,17 @@ void HOGDescriptor::visualizeHOG(float scale, bool imposed) {
         visualization.setTo(cv::Scalar(0, 0, 0));
     }
 
-    // Подсчет количества ячеек на изображении
+    // Calculate cells number in the image
     int cellsX = cellHistograms_[0].size();
     int cellsY = cellHistograms_.size();
 
-    // Проход по ячейкам изображения
+    // Iterate over each cell in the image
     for (int y = 0; y < cellsY; y++) {
         for (int x = 0; x < cellsX; x++) {
 
             std::vector<float> cellHistogram;
             
-            // Добавление всех ячеек из блока где ячейка (y, x) является первой
+            // Add all the cells in the cells block to the cell vector
             int numCellDirections = (blockSize_ / cellSize_);
             for (int i = 0; i < numCellDirections; i++) {
                 for (int j = 0; j < numCellDirections; j++) {
@@ -273,33 +272,33 @@ void HOGDescriptor::visualizeHOG(float scale, bool imposed) {
                 }
             }
             // Block normalization (L2-Hys)
-            // Так как каждая ячейка играет роль в подсчете финального вектора более одного раза из за нормализации блоков,
-            // То простых способов визуализации вектора на выходе алгоритма у нас нет.
-            // Чтобы добиться хоть примерно правильной отрисовки,
-            // мы применяем к каждой ячейке, в которой мы хотим нарисовать визуализацию ее гистограммы в виде стрелок,
-            // нормализацию блока, где она учавствует 
+            // Since each cell plays a role in calculating the final vector more than once due to block normalization,
+            // We don't have any simple ways of visualizing it.
+            // To achieve at least approximately correct rendering,
+            // we apply to each cell, in which we want to draw a visualization of its histogram in the form of arrows,
+            // normalization of the block where it participates
             normalizeBlockHistogram(cellHistogram);
 
-            // Удаление остальных ячеек вектора кроме [y][x]
+            // Remove other cell from vector
             cellHistogram.erase(cellHistogram.begin() + binNumber_, cellHistogram.end());
 
-            // Подсчет позиции вектора на изображении
+            // Calculate cell position on the visualization image
             int cellX = x * cellSize_;
             int cellY = y * cellSize_;
 
-            // Проход по всем корзинам гистограммы ячейки
+            // Iterate over each bin in the cell
             for (int bin = 0; bin < binNumber_; bin++) {
-                // Амплитуда в текущей ячейке гистограммы с учетом пользовательского масштабирования
+                // Magnitude in the bin
                 float magnitude = cellHistogram[bin] * scale;
 
-                // Подсчет угла
+                // Angle
                 float angle = bin * binWidth_;
 
-                // Подсчет конечной точки стрелки
+                // Calculate arrow tip position
                 float arrowX = cellX + cellSize_ / 2 + magnitude * cellSize_ / 2 * cos(angle);
                 float arrowY = cellY + cellSize_ / 2 + magnitude * cellSize_ / 2 * sin(angle);
 
-                // Отрисовка стрелки на изображении
+                // Draw arrow
                 cv::arrowedLine(visualization, cv::Point(cellX + cellSize_ / 2, cellY + cellSize_ / 2),
                                 cv::Point(arrowX, arrowY), cv::Scalar(255, 255, 255), 1);
             }

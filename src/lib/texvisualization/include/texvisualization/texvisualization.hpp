@@ -8,33 +8,33 @@
 #include <opencv2/opencv.hpp>
 
 /**
- * @brief Класс для создания .tex файлов для визуализации процесса
+ * @brief Class for creating .tex files with plots of HOG feature extraction process
  */
 class texHOG{
 public:
     /**
-     * @brief Конструктор класса
+     * @brief Construct a new texHOG object
      * 
      */
     texHOG() = default;
 
     /**
-     * @brief Метод для создания .tex файла с графиком гистограммы ячейки
+     * @brief Method for creating a .tex file with the histogram of given cell
      * 
-     * @param cellHistogram Гистограмма ячейки
-     * @param binWidth Ширина блока гистограммы
-     * @param executablePath Путь к файлу .tex
-     * @param plotName Имя выходного файла
+     * @param cellHistogram Cell histogram values
+     * @param binWidth Width of the histogram block
+     * @param executablePath Path to the .tex file
+     * @param plotName Output file name
      */
     void cellHistogramPlot(std::vector<float> cellHistogram, int binWidth, const std::string& executablePath, const std::string& plotName);
 
     /**
-     * @brief Метод для создания файла .tex с гистограммами ячеек в заданном блоке
+     * @brief Method for creating a .tex file with the histograms of cell within given block
      * 
-     * @param blockHistogram Матрица гистограмм ячеек
-     * @param binWidth Ширина блока гистограммы
-     * @param executablePath Путь к файлу .tex
-     * @param plotName Имя выходного файла
+     * @param blockHistogram Matrix of cell histogram values
+     * @param binWidth Width of the histogram block
+     * @param executablePath Path to the .tex file
+     * @param plotName Output file name
      */
     void blockHistogramPlot(std::vector<std::vector<float>> blockHistogram, int binWidth, const std::string& executablePath, const std::string& plotName);
 };
